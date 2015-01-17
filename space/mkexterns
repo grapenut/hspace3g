@@ -1,0 +1,28 @@
+#!/bin/bash
+
+cat - << EOF
+#ifndef __HSEXTERNS_H
+#define __HSEXTERNS_H
+
+#include "hstypes.h"
+
+EOF
+
+OLDFILE=""
+
+grep '^\w' *.c | awk '{print $0 ";"}' | sed -e 's/;;/;/' -e 's/ =;/;/' -e 's/.c:/.c extern /' -e 's/extern COMMAND/COMMAND_PROTO/' -e 's/extern FUNCTION/FUNCTION_PROTO/' | grep -v static | while read FILE LINE
+do
+  if [ "z$OLDFILE" != "z$FILE" ]
+  then
+    echo
+    echo "/* $FILE */"
+  fi
+  
+  echo $LINE
+  
+  OLDFILE=$FILE
+done
+
+echo
+echo "#endif"
+echo
