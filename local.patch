@@ -1,0 +1,244 @@
+*** cmdlocal.dst	2013-07-29 23:05:37.000000000 -0500
+--- cmdlocal.c	2014-12-04 23:15:53.000000000 -0600
+***************
+*** 9,24 ****
+  /* Here are some includes you're likely to need or want.
+   */
+  #include "copyrite.h"
+! 
+  #include <string.h>
+- 
+- #include "cmds.h"
+- #include "command.h"
+  #include "conf.h"
+  #include "externs.h"
+- #include "flags.h"
+- #include "htab.h"
+  #include "parse.h"
+  
+  extern HASHTAB htab_reserved_aliases;
+  
+--- 9,25 ----
+  /* Here are some includes you're likely to need or want.
+   */
+  #include "copyrite.h"
+! #include "config.h"
+  #include <string.h>
+  #include "conf.h"
+  #include "externs.h"
+  #include "parse.h"
++ #include "htab.h"
++ #include "flags.h"
++ #include "command.h"
++ #include "cmds.h"
++ #include "confmagic.h"
++ #include "hspace.h"
+  
+  extern HASHTAB htab_reserved_aliases;
+  
+***************
+*** 81,84 ****
+--- 82,101 ----
+    command_add("@SILLY", CMD_T_ANY, "WIZARD ROYALTY", "SEE_ALL",
+                "NOISY NOEVAL VERY", cmd_local_silly);
+  #endif
++ 
++ #ifdef HSPACE
++   command_add("@SPACE", CMD_T_ANY | CMD_T_EQSPLIT, "WIZARD ROYALTY HS_SHIP HS_CONSOLE", NULL, "DUMP HALT LIST LOAD MOVE RECONFIGURE SPAWN START VERSION", cmd_space);
++   command_add("@CONSOLE", CMD_T_THING | CMD_T_EQSPLIT, NULL, NULL, "ABORT BURN CLOSEBAY COMBATSTAT COOLDOWN DOCK DUMP ESTATUS ETA EXTEND FIRE GATE HACK HEADING LAND LAUNCH LINK LOCK MANIFEST NAVMODE OPENBAY PRIMARY PROMPT PVPOFF PVPON QUICKSTAT RETRACT SCAN SECONDARY SHUNT SPEED SREP STANCE STATUS SYSSTAT TAXI TRACTOR UNLINK VIEW WAYPOINT", cmd_console);
++   command_add("BOARD", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, "", cmd_board);
++   command_add("COM", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, "", cmd_com);
++   command_add("DISEMBARK", CMD_T_ANY, NULL, NULL, "", cmd_disembark);
++   command_add("EJECT", CMD_T_ANY, NULL, NULL, "", cmd_eject);
++   command_add("MAN", CMD_T_ANY, NULL, NULL, "", cmd_man);
++   command_add("UNMAN", CMD_T_ANY, NULL, NULL, "", cmd_unman);
++ #endif
++ 
+  }
++ 
++ 
++ 
++ 
+*** funlocal.dst	2013-07-29 23:05:37.000000000 -0500
+--- funlocal.c	2014-12-01 02:28:12.000000000 -0600
+***************
+*** 12,26 ****
+  /* Here are some includes you're likely to need or want.
+   * If your functions are doing math, include <math.h>, too.
+   */
+- 
+  #include "copyrite.h"
+! 
+  #include <string.h>
+- 
+  #include "conf.h"
+  #include "externs.h"
+- #include "function.h"
+  #include "parse.h"
+  
+  void local_functions(void);
+  
+--- 12,26 ----
+  /* Here are some includes you're likely to need or want.
+   * If your functions are doing math, include <math.h>, too.
+   */
+  #include "copyrite.h"
+! #include "config.h"
+  #include <string.h>
+  #include "conf.h"
+  #include "externs.h"
+  #include "parse.h"
++ #include "confmagic.h"
++ #include "function.h"
++ #include "hspace.h"
+  
+  void local_functions(void);
+  
+***************
+*** 42,45 ****
+--- 42,56 ----
+  #ifdef EXAMPLE
+    function_add("SILLY", local_fun_silly, 1, 1, FN_REG);
+  #endif
++ 
++ #if HSPACE
++   function_add("HS_CYCLE", fun_hs_cycle, 0, 0, FN_REG);
++   function_add("HS_SET", fun_hs_set, 2, 3, FN_WIZARD);
++   function_add("HS_GET", fun_hs_get, 2, 2, FN_REG);
++   function_add("HS_SREP", fun_hs_srep, 1, 1, FN_REG);
++   function_add("HS_COM", fun_hs_com, 1, 2, FN_REG);
++   function_add("HS_COOLDOWN", fun_hs_cooldown, 2, 2, FN_REG);
++   function_add("HS_LOAD", fun_hs_load, 1, 1, FN_WIZARD);
++   function_add("HS_SALVAGE", fun_hs_salvage, 2, 2, FN_WIZARD);
++ #endif
+  }
+*** local.dst	2013-07-29 23:05:37.000000000 -0500
+--- local.c	2014-12-01 02:28:07.000000000 -0600
+***************
+*** 8,25 ****
+  /* Here are some includes you're likely to need or want.
+   */
+  #include "copyrite.h"
+! 
+  #include <string.h>
+- 
+- #include "command.h"
+  #include "conf.h"
+  #include "dbio.h"
+  #include "externs.h"
+! #include "game.h"
+  #include "htab.h"
+  #include "lock.h"
+! #include "parse.h"
+  
+  
+  extern HASHTAB htab_reserved_aliases;
+  
+--- 8,26 ----
+  /* Here are some includes you're likely to need or want.
+   */
+  #include "copyrite.h"
+! #include "config.h"
+  #include <string.h>
+  #include "conf.h"
+  #include "dbio.h"
+  #include "externs.h"
+! #include "parse.h"
+  #include "htab.h"
++ #include "command.h"
+  #include "lock.h"
+! #include "game.h"
+! #include "confmagic.h"
+  
++ #include "hspace.h"
+  
+  extern HASHTAB htab_reserved_aliases;
+  
+***************
+*** 28,34 ****
+  void
+  local_startup(void)
+  {
+! 
+  /* Register local_timer to be called once a second. You can also
+  * register other callbacks to run at other intervals. See local_timer()
+  * below for an example of what the callback function needs to do if it
+--- 29,35 ----
+  void
+  local_startup(void)
+  {
+!   hs_init();
+  /* Register local_timer to be called once a second. You can also
+  * register other callbacks to run at other intervals. See local_timer()
+  * below for an example of what the callback function needs to do if it
+***************
+*** 39,45 ****
+  * time. The latter two can be null pointers. The callback function returns true
+  * if the softcode event should be triggered, false if it shouldn't.
+  */
+! #if 0                           /* Change to 1 if you need local_timer functionality. */
+    sq_register_loop(1, local_timer, NULL, NULL);
+  #endif
+  }
+--- 40,46 ----
+  * time. The latter two can be null pointers. The callback function returns true
+  * if the softcode event should be triggered, false if it shouldn't.
+  */
+! #if 1                           /* Change to 1 if you need local_timer functionality. */
+    sq_register_loop(1, local_timer, NULL, NULL);
+  #endif
+  }
+***************
+*** 96,101 ****
+--- 97,103 ----
+  void
+  local_dump_database(void)
+  {
++   hs_dump();
+  }
+  
+  /* Called when the MUSH is shutting down.
+***************
+*** 105,110 ****
+--- 107,113 ----
+  void
+  local_shutdown(void)
+  {
++   hs_shutdown();
+  }
+  
+  /* Called when the MUSH is performing a dbck database check,
+***************
+*** 114,128 ****
+  void
+  local_dbck(void)
+  {
+  }
+  
+! /* This is called exactly once a second after the MUSH has done all 
+!  * it's stuff. NOTE: This function MUST be enabled in local_startup();
+!  * read the comments there for instructions.
+   */
+  bool
+  local_timer(void *data __attribute__ ((__unused__)))
+  {
+  
+    /* The callback has to be set back up or it'll only run once. */
+    return false;
+--- 117,132 ----
+  void
+  local_dbck(void)
+  {
++   hs_dump();
+  }
+  
+! /* This is called exactly once a second
+!  * After the MUSH has done all it's stuff
+   */
+  bool
+  local_timer(void *data __attribute__ ((__unused__)))
+  {
++   hs_cycle();
+  
+    /* The callback has to be set back up or it'll only run once. */
+    return false;
