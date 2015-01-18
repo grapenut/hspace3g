@@ -1,0 +1,788 @@
+& Disclaimer
+--------------------------------------< Wing Commander >--------------
+We'd like to take this brief moment to thank the original creators of
+the Wing Commander Universe upon which this game is based. If any find
+us acting illegally, we will remove the offensive part immediately.
+
+Neither Origin nor Electronic Arts are responsible for any activities
+occurring on the MUSH. This is a 100% fan-created site which honors
+the time many of us spent playing one of these wonderful games:
+ 
+Wing Commander
+Wing Commander: Secret Missions 1
+Wing Commander: Secret Missions 2
+Wing Commander II: Vengance of the Kilrathi
+Wing Commander II: Special Operations 1
+Wing Commander II: Special Operations 2
+Wing Commander III: Heart of the Tiger
+Wing Commander IV: The Price of Freedom
+Wing Commander: Prophecy
+ 
+Wing Commander franchise, copyright Origin Systems, Electronic Arts.
+
+A special thanks to Chris Roberts for sharing his dream with us.
+------< Disclaimer >--------------------------------------------------
+
+& npc
+& dialog
+& talk
+& $
+& $keyword
+& reply
+    NPCs are game characters controlled by the MUSH. These include
+  guards, vendors, trainers, and other characters not controlled by
+  players. Interactive NPCs allow you to use the commands listed below
+  to initiate a conversation and reply to the dialog options.
+
+TALK <npc>	  Initiate conversation or repeat the NPC's last dialog.
+		  Also display valid reply <keyword>s.
+
+$<keyword>	  Reply (privately) with one of the valid <keyword>s.
+REPLY <keyword>	  Will accept partial matches of <keyword>.
+
+ ** Players may also respond publicly by using the pose or say command 
+to perform traditional roleplaying responses which include one of the
+valid keywords (complete keyword matches only).
+
+Example:
+  > talk franklin
+  Captain Franklin smiles and waves hello to grapenut. "Welcome stranger! 
+    What can I help you with?"
+  Replies: "Nevermind. *Bye*.", "*Why* should I signup?", "*Where* should 
+    I go?", "*How* am I supposed to get by?", or "*What* do I do now?"
+
+  > :quietly shakes his head and says goodbye.
+  grapenut quietly shakes his head and says goodbye.
+  Captain Franklin says, "Bye then! Use talk franklin to speak with me again."
+
+& space
+& hspace
+  For more information, use help to access one of the topics below:
+
+  SPACE QUICKSTART	A 1-page quickstart intro to flying a ship.
+  SPACE COMMANDS	Consoles, ship objects and radio communications.
+  SPACE SENSORS		Displaying sensor contact reports.
+  SPACE NAVIGATION	Basic navigation, nav points and autopilot nav modes.
+  SPACE GENERAL		General ship-keeping commands.
+  SPACE TUTORIAL	A more indepth follow-along tutorial.
+  
+    Combat in Grapenut's Space System is divided into 4 unique roles, each
+  with different abilities and equipment choices. All ships must have a
+  pilot, however if there are additional consoles present they may be used
+  for gunnery turrets, electronic warfare operations, or engineers.
+  
+  SPACE COMBAT		A general overview of space combat.
+  SPACE PILOTS		Commands and abilities unique to Pilots.
+  SPACE GUNNERS		Commands and abilities unique to Gunners.
+  SPACE OPERATIONS	Commands and abilities unique to Operations.
+  SPACE ENGINEERING	Commands and abilities unique to Engineers.
+  
+  SPACE ADMIN		The @SPACE command and other admin topics.
+  SPACE CREATE		Creating space objects (ships, stars, planets, etc).
+  
+  Access with HELP <topic>.
+
+& space quickstart
+& quickstart
+    Interaction with space through ships is done via consoles. In order to
+  use a console you must be manning it.
+
+  MAN <console>		Become the user of a ship's <console>.
+
+    Your connection to the universe around you is made through use of the
+  ship's sensors. See HELP SPACE SENSORS 2 for a explanation of the format.
+
+  REP			Get a list of sensor contacts and their ranges.
+
+    Most of your space navigation will make use of the autopilot with a 
+  user-defined nav point.
+  
+  NAV <contact>		Set <contact> as your destination nav point.
+  ENGAGE		Use the autopilot to move to your nav point.
+  ALLSTOP		Come to a complete stop and disengage autopilot.
+
+    You can also use your autopilot for combat. With a weapons lock, use the
+  intercept nav mode to stay close to and pointed at your target.
+
+  LOCK <contact>	Lock weapons onto <contact> (can be dangerous!).
+  INTERCEPT		Use the autopilot to intercept your target lock.
+  FIRE			Activate both weapon slots.
+
+  See HELP SPACE or HELP SPACE TUTORIAL for a detailed command reference.
+
+& @space
+& @space/list
+& @space/start
+& @space/halt
+& @space/dump
+& @space/load
+& @space/spawn
+& @space/move
+& space admin
+    Admin may use the @SPACE command to get information and to perform basic
+  utility functions on space objects. Positional information (coordinates,
+  universe, docked/landed/linked) are handled internally and must be
+  changed using @SPACE/MOVE or @CONSOLE commands. Other information (ident,
+  class, name, cargo capacity, docking bay capacity and shipobj) may be
+  changed by updating the relevant attributes on the MUSH object. Changing
+  ship component attributes requires you to use @SPACE/LOAD to reload the
+  object.
+  
+  @SPACE		Basic space admin information.
+  @SPACE/LIST <type>	List all active universes, celestials or ships.
+  @SPACE/START		Restart the space system.
+  @SPACE/HALT		Halt the space system.
+  @SPACE/DUMP [<obj>]	Force the space system to save object position data.
+  @SPACE/LOAD <obj>	Load (or reload) a space object.
+  @SPACE/SPAWN <obj>	Spawn an instance of a drone ship.
+  @SPACE/MOVE <obj>=<dest>[/<x> <y> <z>]
+			Move <obj> to <dest>, optionally using new
+			  coordinates <x>, <y>, and <z>.
+  
+    ** Note that when reloading, the object will be moved to the coordinates
+  of the last dump. Ships should be dumped before reloading.
+
+  See HELP SPACE CREATE for more information about creating space objects.
+
+& space create 1
+& space create universes
+& space create celestials
+& space create planets
+& space create stars
+& space create asteroids
+& space create anomalies
+& space create jumps
+  Player attributes:	HS_COMM flag on player to use communications.
+  			HSPACE		DBREF, space object player is on.
+  			MANNING		DBREF, console player is manning.
+  			PRIMARY		DBREF, primary weapon slot.
+  			SECONDARY	DBREF, secondary weapon slot.
+  			EQUIPMENT	DBREF LIST, weapons and components
+		  			  that the player has access to.
+		  	CALLSIGN	STRING, callsign for communications.
+		  	FREQUENCY	NUMBER LIST, receiving frequencies.
+		  	TRANSMIT	NUMBER, transmission frequency.
+		  	HSPROMPT_FLAGS	ALWAYS, SPACE, COMBAT, or blank
+			HSPROMPT_FREQUENCY
+					INTEGER, seconds between prompts.
+			MISSIONS	DBREF LIST, current missions.
+			MISSIONITEMS	DBREF LIST, current mission items.
+
+  Creating a Universe:	HS_UNIVERSE flag on space object container.
+
+  Creating a Celestial:	HS_CELESTIAL flag on space object.
+			TYPE		star, planet, asteroid,
+					  anomaly, jump, sensor_jam
+			TR_ENTER, TRIGGER, TR_LEAVE (anomalies only)
+					STRING, triggers called when ships
+					  enter, on cycle tick, and leave.
+			IDENT		STRING, identification prefix.
+			MASS		INTEGER, mass in relative units.
+			RADIUS		INTEGER, radius of influence.
+			UNIVERSE	DBREF, resident space system.
+			X, Y, Z		INTEGER, space coordinates.
+
+  See HELP @SPACE for more information on @SPACE/LOAD and @SPACE/MOVE.
+  See HELP SPACE CREATE 2 for more on ships, shipobjs, and consoles.
+
+& space create ships
+& space create consoles
+& space create 2
+& space create2
+  Creating a Ship (@parent #20, Example #11):
+  			HS_SHIP flag on pilots console.
+			HULL, SHIELD, REACTOR, ENGINE, SENSOR, COMPUTER
+					DBREF, ship component.
+  			SHIPOBJ		DBREF, external ship object.
+			CAPTAIN		DBREF, can change boarding code.
+			BAY		DBREF, docking bay/hatch location.
+			BAY_CAPACITY	INTEGER, docking bay capacity.
+			MAX_CARGO	INTEGER, maximum cargo capacity.
+			IDENT		STRING, identification string with
+  					  TC*, EK*, BW*, or XX* (pirate).
+			CLASS		STRING, ship class string.
+			HEARTBEAT	STRING, autopilot heartbeat mode.
+			ROOMS		DBREF LIST, ship rooms.
+			
+			UNIVERSE	DBREF, resident space system.
+			DOCKED, LINKED, LANDED
+					DBREF, associated space object
+			X, Y, Z		INTEGER, space coordinates.
+  
+  Creating a ShipObj:	HS_SHIPOBJ flag on external ship object.
+  			HSNAV		DBREF, pilots console.
+  
+  Creating a Console (@parent #20):
+  			HS_CONSOLE flag on auxiliary console.
+			HSNAV		DBREF, pilots console.
+			MANNED		DBREF, player manning the console.
+
+  See HELP SPACE CREATE 3 for more on drones, components, and weapons.
+
+& space create drones
+& space create components
+& space create weapons
+& space create 3
+& space create3
+  Creating a Drone (Example #30):
+  			HS_DRONE flag on template object.
+			HULL, SHIELD, REACTOR, ENGINE, SENSOR, COMPUTER
+					DBREF, ship component.
+			PRIMARY		DBREF, primary weapon slot.
+			SECONDARY	DBREF, secondary weapon slot.
+			IDENT		STRING, identification string.
+			CLASS		STRING, ship class string.
+			MISSION		DBREF, mission that spawned drone.
+			MISSIONITEM	DBREF, mission item to give in loot.
+			HEARTBEAT	STRING, autopilot heartbeat mode.
+			UNIVERSE	DBREF, resident space system.
+			X, Y, Z		INTEGER, space coordinates.
+
+  Creating a Component (Example #21-#26):
+  			HS_COMPONENT flag on template object.
+  			TYPE		hull, shield, engine, reactor,
+  					sensor, computer, afterburner
+  			RATE, EFFICIENCY, STRENGTH, MAXENERGY
+  					INTEGER, dependant on the component.
+
+  Creating a Weapon (Example #31-#37):
+  			HS_WEAPON flag on template object.
+  			TYPE		weapon, missile, cannon, emitter,
+					  wiretap, capacitor, booster
+			ACCURACY	INTEGER, percentage out of 100%.
+			DAMAGE		INTEGER, base damage strength.
+			MAXPOWER	INTEGER, max energy storable.
+			POWER		INTEGER, energy per use.
+			RANGE		INTEGER, maximum effective range.
+			RELOAD		INTEGER, reload time.
+			SPEED		INTEGER, projectile velocity.
+
+  See HELP SPACE CREATE 4 for more on missions and NPCs.
+
+& space create missions
+& space create missionitems
+& space create mission items
+& space create npcs
+& space create 4
+& space create4
+  Creating a Mission (Example #90):
+  			HS_MISSION flag on mission object.
+  			@LOCK/USER:PREREQS	PREREQS/1
+			PREREQS		UFUN, evaluates to 1 if %# (as %0)
+					  can accept the mission.
+			#LOCK/USER:FINISH	FINISH/1
+			FINISH		UFUN, evaluates to 1 if %# can
+					  finish the mission.
+			DESCRIBE	STRING, mission log description.
+			HINT		STRING, more detailed hints.
+			RESET		INTEGER, time to be able to repeat.
+			
+			DRONE_#		DBREF, the drone to spawn.
+			COUNT_#		INTEGER, number to spawn.
+			RESPAWN_#	INTEGER, time before respawn.
+			UNIVERSE_#	DBREF, universe to spawn in.
+			X_#, Y_#, Z_#	INTEGER, coordinates to spawn at.
+
+  Creating a Mission Item (Example #91):
+  			MISSION_ITEM flag on mission item object.
+  			DESCRIBE	STRING, mission log description.
+  			MISSION		DBREF, the required mission.
+  			STACKABLE	INTEGER, 0/1, can have more than 1?
+  
+  Creating an NPC (@parent #99):
+  			NPC flag on the NPC object.
+  			@LISTEN		*
+  			PROMPT_0	Farewell message. No replies.
+  			PROMPT_1	Main greeting.
+    			PROMPT_#	General dialog node #.
+  			RESPONSE_#_@	Prompt # reply, links to prompt @.
+  			ACTION_#	UFUN, execute when changing to #.
+
+& space tutorial 1
+& tutorial 1
+    Grapenut's Space System is designed to make space flight simple so that
+  you can focus on the fun stuff, fighting bad guys and exploring the
+  universe. To follow along with this tutorial it's best to use one of the
+  Simulator Consoles found throughout the game. To begin using a console,
+  first find one. You can identify them in a room description as they will
+  be a special color and have a (Unmanned) tag next to their name. Once you
+  have found a console, use the MAN <console> command to become the user.
+
+    The system uses the telnet prompt to send status updates directly to
+  your command line. If your MUSH client supports prompts this is a very
+  convenient way to get information without the need to constantly use
+  sensor report and status report commands. If your MUSH client does not
+  support prompts you may see prompts as a normal line of text. It may still
+  be useful to use them with a lower frequency (every 3s, 5s, 10s, etc). To
+  test if your client can handle telnet prompts, use +PROMPT/ALWAYS 10. You
+  may immediately generate a prompt by using a console command, or wait 10
+  seconds for one to be generated automatically. If you see new text on your
+  command-line then prompts are supported. If instead the text is sent to
+  your output or does not show up at all you may not fully support prompts
+  but might still want to use them (consider +PROMPT/COMBAT 3 for instance).
+  Use +PROMPT/OFF to disable prompts. See HELP SPACE SENSORS for more
+  information about the +PROMPT command. You may need to use the PennMUSH
+  command PROMPT_NEWLINES 1 if your prompt is being displayed in the output
+  and your client needs the server to print a newline after the prompt.
+
+    Continued in HELP TUTORIAL 2.
+
+& space tutorial 2
+& tutorial 2
+    Now that you are manning a console, let's have a look at some of the
+  information we have access to. Use LSTAT and QSTAT to show long and quick
+  status reports for ship systems. Use CSTAT to show your weapons. You may
+  also try ESTAT, however you probably won't have any active effects yet.
+  Check HELP SPACE GENERAL for more commands that will not be covered by the
+  tutorial.
+  
+    You've had a look at the ship's systems. Now take a look outside. Use the
+  command REP to show a list of sensor contacts. For a detailed explanation
+  of the sensor output check HELP SPACE SENSORS 2. These contacts can be
+  filtered by type (e.g. REP SHIP, REP STAR PLANET, or REP JUMP). Three
+  aliases exist: SREP -> REP SHIP, PREP -> REP CELESTIAL, JREP -> REP JUMP.
+  Have a look at the sensor contacts and note their contact IDs and distance
+  order.
+  
+    Find the closest sensor contact ID and set it as your nav point using the
+  command NAV <contact>. You will do most of your navigating by setting your
+  nav point and engaging one of your autopilot nav modes. Type ENGAGE to go
+  to the nav point you selected. You will automatically stop once you get
+  close to your contact and resume following it if it moves. To turn your
+  autopilot off use the ALLSTOP (come to a complete halt) command or the
+  DISENGAGE (maintain speed) command. 
+
+    Continued in HELP TUTORIAL 3.
+
+& space tutorial 3
+& tutorial 3
+    Basic space combat also utilizes the autopilot nav modes to navigate the
+  ship while you focus on managing weapon timers and ability cooldowns.
+  Check your sensors again and find a ship contact which will be green for
+  friendly/neutral and red for enemies. In Sim Space noone gets hurt, so
+  choose any ship contact and use LOCK <contact> to lock weapons. If the
+  target is a drone it will respond by coming after you so read ahead and be
+  prepared. To travel to a weapons lock target just as you did with the nav
+  point use the INTERCEPT command. The prompt will update to show your
+  weapon status, distance to target, and target hull/shield. You can also
+  use the CSTAT command to get more detailed weapon and target status
+  reports.
+  
+    To fire both weapon slots simultaneously use the FIRE command. As you
+  obtain new weapon types you may wish to activate them independantly with
+  the PRI and SEC commands. When your weapons have reloaded/recharged use 
+  the FIRE command again and continue to do so until the target has been
+  destroyed. As you perform the story-line campaign missions you will be
+  introduced to the different cooldown abilities that are available. Check
+  HELP SPACE PILOT, HELP SPACE GUNNER, HELP SPACE OPS, or HELP SPACE ENG for
+  more information about these abilities and the different stances that are
+  used to tweak the effects of your weapons.
+
+    If you have won the fight there should now be a Debris contact on
+  sensors which contains some cargo, cash, equipment or mission items. Use
+  the TRACTOR <contact> command to retrieve these items. You can check your
+  current cargo with the MANIFEST command, your current cash and equipment
+  with the INVENTORY command, all available weapons with the EQ command, and
+  mission log information with the LOG command.
+
+& space commands
+& man
+& unman
+& board
+& disembark
+& eject
+& callsign
+& @callsign
+& freq
+& trans
+& comm
+& com
+& eq
+& aux
+& radio
+    Most interaction with Grapenut's Space System is through one of the
+  various ships' consoles. Listed here are the commands to use one of these
+  consoles as well as enter and leave ships, return to planets if you are
+  destroyed, or transmit radio messages to other players.
+
+  MAN <console>		Become the user of <console> (reequip weapons).
+  UNMAN <console>	Stop using <console>.
+  
+  BOARD <ship>[=<code>]	Enter <ship>, using <code> if security is enabled.
+  DISEMBARK, DIS	Leave a ship, while standing in the ship's bay.
+  
+  EJECT			Eject in an emergency pod to the nearest planet.
+
+  @CALLSIGN me=<call>	Set your radio callsign to <call>.
+  FREQ <#>=<freq>	Change receiver channel <#>'s frequency to <freq>.
+  TRANS <freq>		Change transmitter frequency to <freq>.
+  COM <msg>		Send <msg> on the current transmission frequency.
+  COM <freq>=<msg>	Send <msg> on the specified frequency <freq>.
+  RADIO <ON/OFF>	Turn the radio on or off.
+
+  EQ			View equipment that is available to be equipped.
+  EQ <weapon>		Equip a weapon in the primary weapons slot.
+  AUX <weapon>		Equip a weapon in the secondary weapons slot.
+
+& space sensors
+& space prompt
+& sensors
+& prompt
+& +prompt
+& rep
+& srep
+& prep
+& jrep
+& scan
+& view
+    Sensors track the objects that are visible to your ship that you
+  may interact with. Reports can be filtered to show only specific object
+  types. Contacts are sorted by distance in descending order.
+  
+  R			Show sensor report for all targets.
+  REP [<object types>]  Optionally filtered by list of <object types>.
+
+			Types: celestial star planet asteroid anomaly 
+  			       jump nav ship drone debris
+	
+  SREP, SR		Show sensor report on ship contacts.
+  PREP, PR		Show sensor report on celestial contacts.
+  JREP, JR		Show sensor report on jump point contacts.
+  
+  SCAN [<contact>]	Scan <contact> or target lock, showing details.
+  
+  VIEW			Look outside while docked or landed.
+
+    Grapenut's Space System also gives you the option of enabling telnet
+  prompts for timely updates of critical ship information on your command
+  line while manning a console, without the need to spam status commands.
+  Prompts show ship hull/shield/weapon status, target lock status, and nav
+  point range.
+    
+  +prompt/always <#>	Always send the prompt every <#> seconds.
+  +prompt/space <#>	Send a prompt only while in space, every <#> secs.
+  +prompt/combat <#>	Send a prompt only while in combat, every <#> secs.
+  +prompt/off		Completely turn off prompts (default).
+  PROMPT_NEWLINES <0|1> Tell PennMUSH to send a newline after prompts.
+                        Only needed by some clients like SimpleMU.
+
+  Access HELP SPACE SENSORS 2 for more details on sensor reports.
+
+& space sensors 2
+& sensors 2
+                    Ship's Heading -.     Ship's Speed    Star System  -.
+                                    |            |                      |
+ Sensor Contacts:   8         H: 70 m-15  S:  1200 km/s            Trafalgar
+---------------------------------------------------------------------------
+ $ [4353] Cargo Pod           B: 0  m  0  R:     7 Mm    M:  1 Mg    T: 111 s
+ B [3450] Garbage Scow        B: 0  m  0  R:     7 Mm    H: 338m-30  S: 0      
+ o [5981] Quarto              B: 0  m  0  R:     7 Mm  ETA: 5s
+ > [6110] > Racene            B: 123m 36  R:    99 Mm  ETA: 1m22s
+ x [9538] Trafalgar Asteroids B: 215m -5  R:   274 Mm    M: 1000 Eg  Rad: 100 Mm
+ * [2442] Trafalgar           B: 21 m-23  R:  1560 Mm    M:  1 Solar
+ ? [5461] Tanhauser Nebula    B: 21 m-23  R:  1560 Mm    M: 1000 Solar  Rad: 100000 Mm
+ !![4897] Nav point           B: 18 m-23  R:  1498 Mm  ETA: -
+---------------------------------------------------------------------------
+ |   |         |                    |            |             |
+ |  ID#   Contact Name      Contact Bearing      |  Object specific information
+ |                                               |   (ETA to nav/jump/planet)
+ `- Object type                   Contact Range -'
+
+  Types:
+	*	Star (bright white)
+	o	Planets and Moons (cyan)
+	x	Asteroids and Asteroid belts. (bright yellow)
+	?	Sensor Anomaly (Nebulae, Black Holes, etc) (black)
+  	$	Debris and Cargo Pods (yellow)
+	>	Jump Point (blue)
+	!	Nav Point (magenta)
+	A-D	Fighters with 1 (A) to 4 (D) consoles.
+	E-H	Capital ships with 1 (E) to 4 (H) consoles.
+
+    ** Ship contacts are colored bright green for friendlies, dark green for
+  neutral, red for enemies and bright red when targetting you.
+
+& space navigation
+& navigation
+& nav
+& engage
+& formation
+& intercept
+& evade
+& allstop
+& disengage
+& jump
+& taxi
+& ss
+& sh
+& burn
+& abort
+& eta
+    Basic navigation is mostly automated, utilizing nav points and nav modes
+  in order to pilot the ship with a minimum of effort and spatial awareness.
+  Simply focus on your sensor contact information and tell the ship which
+  contact is your destination. Engage the autopilot and sit back until you
+  arrive.
+
+  NAV [<contact>]
+  NAV <x> <y> <z>	Set nav point to the specified <contact> or point.
+  ETA			Shows your time to arrival at current velocity.
+  
+  ENGAGE		Head directly to the nav point at maximum velocity.
+  FORMATION, FORM	Match heading and velocity to the nav point.
+  INTERCEPT, INT	Head directly to the target lock at maximum velocity.
+  EVADE			Evade the target lock, heading away at max velocity.
+  ALLSTOP, STOP		Come to a complete stop and disengage autopilot.
+  DISENGAGE		Disengage autopilot without stopping.
+  
+  JUMP [<contact>]	Use jump drive on <contact> or closest jump point.
+  
+  TAXI <direction>	Taxi the ship through an exit while docked or landed.
+
+  ** Manual flight operations below, autopilot must be disengaged. **
+  SS <velocity>		Change velocity.
+  SH <xyhead>M<zhead>	Change heading (Ex. sh 120m45)
+
+  BURN, ABORT		Engage or disengage the afterburners.
+
+  Access HELP SPACE PILOT for more information about combat while navigating.
+
+& space general
+& general
+& boarding code
+& security
+& land
+& launch
+& open bay
+& close bay
+& dock
+& undock
+& extend link
+& retract link
+& link
+& unlink
+& dump
+& tractor
+& manifest
+& pvp
+& lstat
+& qstat
+& estat
+    These are general ship commands used to enter, leave or connect with
+  other contacts, manage cargo, and enable player versus player combat.
+  
+  BOARDING CODE <code>	As the ship's captain, change the boarding code.
+  SECURITY <on|off>	Turn the ship's boarding security on or off.
+  
+  LAND <contact>[=<#>]	Land on a celestial <contact>, optional pad <#>.
+  LAUNCH		Launch the ship from a drop pad.
+  
+  OPEN BAY		Open the docking bay.
+  CLOSE BAY		Close the docking bay.
+  DOCK <contact>	Enter <contact>'s docking bay.
+  UNDOCK		Undock from the carrier's bay.
+  
+  EXTEND LINK		Extend the boarding link.
+  RETRACT LINK		Retract the boarding link.
+  LINK <contact>	Link with <contact>, disembark from bay to transfer.
+  UNLINK		Decouple boarding link from the other ship.
+  
+  DUMP <cargo>=<amount>	Eject <amount> tons of <cargo> from the cargo bay.
+  			** Cargo Pods/Debris last for a limited time only.
+  TRACTOR <contact>	Tractor ship debris and cargo pods.
+  MANIFEST		Display the ship's cargo manifest.
+  
+  PVP <on|off>		Enable or disable Player Vs. Player targetting.
+
+  LSTAT, LS		Long status listing of all ship systems and stats.
+  QSTAT, QS		Quick status listing of ship system resources.  
+  ESTAT, ES		Ship's status effect listing with durations.
+
+& space combat
+& combat
+& cstat
+& grep
+& qrep
+& lock
+& unlock
+& pri
+& sec
+& fire
+& !
+& cd
+& .
+& stance
+    Every player/console is allotted two weapon slots, the primary and
+  secondary. Weapon slot types include Guns, Missiles, Cannons, Emitters,
+  Wiretaps, Capacitors and Boosters. Missiles are specific to pilots,
+  Cannons to Gunners, Wiretaps to Ops Officers and Capacitors to Engineers.
+  Guns, Emitters and Boosters may be used by any console type in the
+  secondary (or primary) weapons slot.
+
+  CSTAT, CS		Combined weapon status and target lock information.
+
+  GREP, GR
+  QREP, QR		Aliases for CSTAT, Gun REPort and (Q)contact REPort
+
+  LOCK <contact>	Lock weapons on <contact>.
+  UNLOCK		Unlock weapons.
+  
+  PRI [<#>]		Fire primary weapon, optional power/duration <#>.
+  SEC [<#>]		Fire secondary weapon, optional power/duration <#>.
+  FIRE [<#1> <#2>]	Fire all weapons, optional power/duration <#1>/<#2>.
+
+  !<cooldown>		Activate <cooldown> ability for your console type.
+  CD <cooldown>		** You are encouraged to macro these to your taste.
+  
+  .<stance>		Change your current weapon stance to <stance>.
+  STANCE <stance>	Weapon stances affect your primary weapon stats.
+  			** You are encouraged to macro these to your taste.
+  
+    See HELP SPACE PILOTS, HELP SPACE GUNNERS, HELP SPACE OPERATIONS, and
+  HELP SPACE ENGINEERS for more information about the unique console roles,
+  cooldowns, and stances.
+
+& space weapons
+& weapons
+  Standard Weapons:
+	Laser Cannon (standard, long range, light damage, fast reload)
+	Photon Cannon (standard, short range, heavy damage, slow reload)
+
+	Ion Gun (shield, long range, light damage, fast reload)
+	Meson Blaster (shield, short range, heavy damage, slow reload)
+
+	Plasma Gun (hull, long range, light damage, fast reload)
+	Particle Cannon (hull, short range, heavy damage, slow reload)
+
+	Tachyon Gun (penetrate, long range, light damage, fast reload)
+	Neutron Gun (penetrate, short range, heavy damage, slow reload)
+
+& space pilots
+& pilots
+    Pilots are responsible for navigating the ship, manning the Navigation
+  Console or Helm. The Pilot's special weapon is the Missile Launcher which
+  packs a huge punch but takes time to reload. Pilot abilities are adapted
+  specifically for avoiding incoming attacks and providing burst damage.
+  Pilots make use of their INTERCEPT and EVADE nav modes to either head
+  towards or away from enemy target locks.
+
+  Missile Stances:
+  	Missile			Standard guided missile with equal damage
+				  potential yield for hull and shields.
+  	Banshee Missile		Precision guided missile with increased
+				  shield damage potential.
+  	Dumbfire Missile	Unguided missile with increased hull damage
+				  potential.
+  	Phase Missile		Phase decoupled missile can partially
+				  penetrate shields.
+	* Torpedo		Special variant of the phase missile which
+				  does devastating damage to capital ships.
+
+	* Only available on bombers.
+
+  Cooldowns:
+  	Overheat	Increase missile damage at the cost of reload time
+			  and power usage.
+  	Juke		Juke an incoming enemy missile.
+  	Jive		Dance around incoming enemy fire, reducing accuracy.
+  	Burst		Large speed increase.
+  	Vanish		Scramble enemy sensors, leaving combat.
+  	Reload		Immediately reload missiles, weapons and emitters.
+  	
+& space gunners
+& gunners
+    Turret gunners provide a premium service in this war-time economy. They
+  can chew through enemy fighters faster than any other combat role. The
+  Gunner's special weapon is the Cannon which leaves behind a secondary
+  effect (radioactive residue, similar to a 'poison'). The residue continues
+  to gain strength from each subsequent attack, unleashing the full
+  potential when it expires.
+  
+  Cannon Stances:
+  	Mass Driver Cannon	Relativistic projectiles with secondary
+				  damage balanced between hull and shields.
+  	Ion Cannon		Ionized plasma residue produces secondary
+				  radiation which disrupts shields.
+  	Heavy Plasma Cannon	Million degree hydrogen plasma burns through
+				  any material including hulls.
+  	Tachyon Cannon		Tachyon particles are able to pass through
+  				  standard shields.
+
+  Cooldowns:
+  	Overload	Increase cannon damage at the cost of reload time
+			  and power usage.
+  	Sixoclock	Shoot down an incoming enemy missile.
+  	Sniper		Increase weapon accuracy.
+  	Pierce		De-phase weapons, increasing shield penetration.
+  	Rapid		Decrease reload time and power usage at the cost of
+  			  reduced damage.
+  	Ignite		Cause residue to expire, doing damage immediately.
+
+& space operations
+& space ops
+& operations
+& ops
+& hack
+      The Ops station is a vital support position often overlooked when the
+  blasters start buzzing by your ears. Electronic Warfare can often lead to
+  an unconventional solution to an otherwise evenly matched encounter. The
+  Ops Officer's special weapon is the Wire(less) Tap which they use to
+  infiltrate enemy ship computers to disrupt systems and provide crowd
+  control. These hacks are stored in memory then released to provide a
+  different assortment of problems for enemies to deal with.
+  
+  HACK <system>		Prepare a hacking script for enemy's <system>.
+  			System: Shield, Reactor, Engine, Sensor, Computer,
+  			  and Weapon.
+  
+  Emitter Stances:
+  	Proton Beam	Standard beam weapon fires a continuous photon
+			  stream which affects both shields and the hull.
+  	Meson Beam	Short-halflife quantum particles emit radiation
+			   upon impact increasing damage to shields.
+  	Plasma Beam	Unstable heavy nuclei cause micro-fission explosions
+			  increasing damage to the hull.
+  	Neutron Beam	Heavy neutral particle beam is able to bypass
+  		  	  electromagnetic shields.
+
+  Cooldowns:
+  	Override	Increase emitter damage and power usage.
+  	Quarantine	Isolate an enemy hack and remove it from the system.
+  	Reboot		Immediately reload/charge ops console weapons.
+  	Cache		Increase memory capacity by storing attacks on disk.
+
+& space engineers
+& engineers
+& shunt
+& boost
+    Engineers are the only thing keeping that tin can you call a ship from
+  turning into a cold corpse coffin when the lights go out. They not only
+  fix the ship when it's broken, but they can make it run like new again
+  and on occasion perform miracles. The Engineer's special weapons are the
+  Capacitor and the Booster. Capacitors are used to store excess energy
+  which is then bypassed back into systems to restore system resources used
+  by console abilities, or more importantly, instantly recharge damaged
+  shields. Boosters are attached to individual systems to provide a moderate
+  increase in power and efficiency.
+  
+  SHUNT <system>	Shunt <system>, adding a short term buff.
+  			System: Shields and Engines.
+
+  BOOST <system>	Select the <system> for a booster.
+  			System: Engine, Reactor, Sensor, Computer, and Weapon.
+
+  Capacitor Stances:
+  	Shield Bypass	Bypass power is used to quickly recharge shields.
+  	Sensor Bypass	Bypass power is used to quickly realign sensors.
+  	Engine Bypass	Bypass power is used to quickly cool down engines.
+  	Reactor Bypass	Bypass power is used to augment reactor power.
+
+  Cooldowns:
+  	Overcharge	Dump excess power from secondary systems to increase
+			  capacitor bypass output.
+  	Compensate	Realign the power grid to compensate for enemy
+  			  hacks, negating their effects.
+  	Short		Connect the capacitor directly to the reactor
+  			  instantly recharging it to full.
+  	Boost		Operate the booster above manufacturer's suggested
+  			  rating for a short duration.
