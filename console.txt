@@ -1,0 +1,132 @@
+@@ ShipObj Parent (#12)
+@create ShipObj Parent
+@link ShipObj Parent = #0
+@lock/Zone ShipObj Parent==#12
+@lset ShipObj Parent/Zone=no_inherit
+@set ShipObj Parent = SAFE
+@set ShipObj Parent = NO_COMMAND
+@set ShipObj Parent = HS_SHIPOBJ
+&DESCRIBE ShipObj Parent=The [name(%!)] is a patchwork civilian ship. It looks like a surplus Vega Campaign fighter refitted with modern components.%r%b%b[ansi(hw,Captain:)]%b[name(xget(v(HSNAV),CAPTAIN))]%r%b%b[if(xget(v(HSNAV),SECURITY),command(BOARD [name(%!)]=??,Board the [name(%!)],code),command(BOARD [name(%!)],Board the [name(%!)]))]
+@set ShipObj Parent/DESCRIBE=no_command visual prefixmatch public
+&EFAIL ShipObj Parent=Try using [ansi(c,BOARD [name(%!)][if(xget(v(HSNAV),SECURITY),=<code>)])] instead.
+@set ShipObj Parent/EFAIL=no_command prefixmatch
+@@ Console Parent (#20)
+@create Console Parent
+@link Console Parent = #0
+@set Console Parent = SAFE
+@set Console Parent = NO_COMMAND
+&CMD_ABORT Console Parent=$abort:@console/abort
+&CMD_ALLHALT Console Parent=$allhalt:@console/navmode all stop
+&CMD_ALLSTOP Console Parent=$allstop:@console/navmode all stop
+&CMD_BOARDING_CODE Console Parent=$boarding code *:@switch match(v(CAPTAIN),%#)=1,{@pemit %#=You change the boarding code to '[ansi(h,%0)]'.[null(set(%!,BOARDING_CODE:%0))]},{@pemit %#=You can't change the boarding code.}
+&CMD_BOOST Console Parent=$boost *:@console/stance boost %0
+&CMD_BURN Console Parent=$burn:@console/burn
+&CMD_CLEAR_NAV Console Parent=$nav:@console/waypoint
+&CMD_CLEAR_WAYPOINT Console Parent=$wp:@console/waypoint
+&CMD_CLOSEBAY Console Parent=$close*:@console/closebay
+&CMD_COOLDOWN Console Parent=$cd *:@console/cooldown %0
+&CMD_COOLDOWN_SIMPLE Console Parent=$!*:@console/cooldown %0
+&CMD_CS Console Parent=$cs:@console/combatstat
+&CMD_CSTAT Console Parent=$cstat:@console/combatstat
+&CMD_DISABLE_PVP Console Parent=$disable pvp:@console/pvpoff
+&CMD_DISENGAGE Console Parent=$disengage:@console/navmode
+&CMD_DOCK Console Parent=$dock *:@console/dock %0
+&CMD_DUMP Console Parent=$dump *=*:@console/dump %0=[edit(%1,%b,_)]
+&CMD_ENABLE_PVP Console Parent=$enable pvp:@console/pvpon
+&CMD_ENGAGE Console Parent=$engage:@console/navmode goto
+&CMD_ENGAGE_FULL Console Parent=$engage *:@console/waypoint %0; @console/navmode goto
+&CMD_ES Console Parent=$es:@console/estatus
+&CMD_ESTAT Console Parent=$estat:@console/estatus
+&CMD_ETA Console Parent=$eta:@console/eta
+&CMD_EVADE Console Parent=$evade:@console/navmode evade
+&CMD_EXTEND Console Parent=$extend*:@console/extend
+&CMD_FIRE Console Parent=$fire*:@console/fire %0
+&CMD_FORM Console Parent=$form:@console/navmode form on waypoint
+&CMD_FORMATION Console Parent=$formation:@console/navmode formation
+&CMD_GATE Console Parent=$gate *:@console/gate %0
+&CMD_GATE_SIMPLE Console Parent=$gate:@console/gate
+&CMD_GR Console Parent=$gr:@console/combatstat
+&CMD_GREP Console Parent=$grep:@console/combatstat
+&CMD_HACK Console Parent=$hack *:@console/hack %0
+&CMD_INT Console Parent=$int:@console/navmode intercept
+&CMD_INTER Console Parent=$inter:@console/navmode intercept
+&CMD_INTERCEPT Console Parent=$intercept:@console/navmode intercept
+&CMD_INT_FULL Console Parent=$int *:@console/lock %0; @console/navmode intercept
+&CMD_JR Console Parent=$jr:@console/srep jump nav
+&CMD_JREP Console Parent=$jrep:@console/srep jump nav
+&CMD_JUMP Console Parent=$jump *:@console/gate %0
+&CMD_JUMP_SIMPLE Console Parent=$jump:@console/gate
+&CMD_LAND Console Parent=$land *:@console/land before(%0,=)=after(%0,=)
+&CMD_LAUNCH Console Parent=$launch:@switch gte(sub(secs(),default(%!/LAST_SALVAGE,0)),v(SALVAGE_COOLDOWN))=1,@console/launch,@pemit %#=ansi(hg,-) The ship is on salvage cooldown for [ansi(hw,timestring(sub(v(SALVAGE_COOLDOWN),sub(secs(),default(%!/LAST_SALVAGE,0)))))].
+&CMD_LINK Console Parent=$link *:@console/link %0
+&CMD_LOCK Console Parent=$lock *:@console/lock %0
+&CMD_LS Console Parent=$ls:@console/sysstat
+&CMD_LSTAT Console Parent=$lstat:@console/sysstat
+&CMD_MANIFEST Console Parent=$manifest:@console/manifest
+&CMD_NAV Console Parent=$nav *:@console/waypoint %0
+&CMD_OPENBAY Console Parent=$open*:@console/openbay
+&CMD_PING Console Parent=$ping:@console/cooldown ping
+&CMD_PR Console Parent=$pr:@console/srep star planet anomaly asteroid debris nav
+&CMD_PREP Console Parent=$prep:@console/srep star planet anomaly asteroid debris nav
+&CMD_PRIMARY Console Parent=$pri:@console/primary
+&CMD_PRIMARY_FULL Console Parent=$pri *:@console/primary %0
+&CMD_PROMPT_ALWAYS Console Parent=$+prompt/always *:@pemit %#=[ansi(hg,-)] Space prompt will [ansi(h,always)] be shown every [ansi(h,%0)] seconds.[null(set_prompt(%#,ALWAYS,%0))] ; @console/prompt
+&CMD_PROMPT_COMBAT Console Parent=$+prompt/combat *:@pemit %#=[ansi(hg,-)] Space prompt will be shown in [ansi(h,combat)] every [ansi(h,%0)] seconds.[null(set_prompt(%#,COMBAT,%0))];@console/prompt
+&CMD_PROMPT_OFF Console Parent=$+prompt/off:@pemit %#=[ansi(hg,-)] Space prompt will [ansi(h,never)] be shown.[null(set_prompt(%#,OFF))];@console/prompt
+&CMD_PROMPT_SPACE Console Parent=$+prompt/space *:@pemit %#=[ansi(hg,-)] Space prompt will be shown in [ansi(h,space)] every [ansi(h,%0)] seconds.[null(set_prompt(%#,SPACE,%0))];@console/prompt
+&CMD_PVPOFF Console Parent=$pvp off:@console/pvpoff
+&CMD_PVPON Console Parent=$pvp on:@console/pvpon
+&CMD_QR Console Parent=$qr:@console/combatstat
+&CMD_QREP Console Parent=$qrep:@console/combatstat
+&CMD_QS Console Parent=$qs:@console/quickstat
+&CMD_QSTAT Console Parent=$qstat:@console/quickstat
+&CMD_R Console Parent=$r:@console/srep
+&CMD_REP Console Parent=$rep:@console/srep
+&CMD_REP_FULL Console Parent=$rep *:@console/srep %0
+&CMD_RETRACT Console Parent=$retract*:@console/retract
+&CMD_SCAN Console Parent=$scan *:@console/scan %0
+&CMD_SCAN_SIMPLE Console Parent=$scan:@console/scan
+&CMD_SECONDARY Console Parent=$sec:@console/secondary
+&CMD_SECONDARY_FULL Console Parent=$sec *:@console/secondary %0
+&CMD_SECURITY Console Parent=$security *:@switch %0=on,{@pemit %#=Security on.[null(set(default(HSNAV,%!),SECURITY:1))]},off,{@pemit %#=Security off.[null(set(default(HSNAV,%!),SECURITY:0))]},{@pemit %#=You must specify on or off.}
+&CMD_SH Console Parent=$sh *m*:@console/heading %0=%1
+&CMD_SHUNT Console Parent=$shunt *:@console/shunt %0
+&CMD_SR Console Parent=$sr:@console/srep ship nav
+&CMD_SREP Console Parent=$srep:@console/srep ship nav
+&CMD_SS Console Parent=$ss *:@console/speed %0
+&CMD_STANCE Console Parent=$stance *:@console/stance %0
+&CMD_STANCE_SIMPLE Console Parent=$.*:@console/stance %0
+&CMD_STAT Console Parent=$stat:@console/status
+&CMD_STATUS Console Parent=$status:@console/status
+&CMD_STOP Console Parent=$stop:@console/navmode all stop
+&CMD_TAXI Console Parent=$taxi *:@console/taxi %0
+&CMD_TRACTOR Console Parent=$tractor *:@console/tractor %0
+&CMD_UNDOCK Console Parent=$undock:@switch gte(sub(secs(),default(%!/LAST_SALVAGE,0)),v(SALVAGE_COOLDOWN))=1,@console/launch,@pemit %#=ansi(hg,-) The ship is on salvage cooldown for [ansi(hw,timestring(sub(v(SALVAGE_COOLDOWN),sub(secs(),default(%!/LAST_SALVAGE,0)))))].
+&CMD_UNLINK Console Parent=$unlink:@console/unlink
+&CMD_UNLOCK Console Parent=$unlock:@console/lock
+&CMD_VIEW Console Parent=$view:@console/view
+&CMD_WAYPOINT Console Parent=$wp *:@console/waypoint %0
+&COMPUTER Console Parent=#36
+@set Console Parent/COMPUTER=no_command
+&DESCRIBE Console Parent=[u(describe1)]%r[u(describe2)]%r[u(describe3)]%r[u(describe4)]%r%b%bType [command(MAN [name(%!)],Use the [name(%!)])] to become the user.
+@set Console Parent/DESCRIBE=no_command visual prefixmatch public
+&DESCRIBE1 Console Parent=[setq(0,hs_get(%!,HULL))][setq(1,hs_get(%!,SHIELD))][setq(2,switch(%q1,>90,B,>70,G,>50,Y,>30,R,X))][setq(3,switch(%q0,>75,hg,>50,hy,>25,hr,hw))]%B%B[ansi(hx,[repeat(_,19)]%B%B%B[repeat(_,31)]%R%B%/%B[repeat(_,17)]%B%\%B%/)][space(9)][ansi(hw,%/%B%B%BSPEED%B%B%B%\)][space(9)][ansi(hx,%\[space(5)][repeat(_,8)]%R|%B%/[space(17)]%\%B%/)]%B%B[ansi(huw,[space(8)]%\%B[center([round([mul([hs_get(%!,SPEED)],[mul(3,hs_get(%!,AFTERBURNING))])],0)]km%/s,9)]%B%/[space(8)])]%B%B[ansi(hx,%\%B%B%B%/[space(8)]%\%R|%B|)]%B%B[ansi(huw,Shield Status)]%B%B%B[ansi(hx,%/)]%B%B[ansi(hw,/[space(29)]%\)]%B%B[ansi(hx,%\_%/)]%B%B%B[ansi(huw,[rjust(%q0%%,4)])]%B%B%B[ansi(hx,%\%R|%B|)]%B[ansi(hw,|)][ansi(huw,%BFORE%B%B%B[rjust(%q1%%,4)]%B)][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|)]%B[ansi(hx,%\[space(27)]%/)]%B[ansi(hw,|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>90,hwG,hw),____)][ansi(hw,|)]%b%B[ansi(hx,|)]
+&DESCRIBE2 Console Parent=[ansi(hx,|%B|)]%B[ansi(hw,|)][ansi(%q2%q3,[space(6)]|[space(6)])][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|)]%B%B[ansi(hx,%\[space(25)]%/)]%B%B[ansi(hw,|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>80,hwG,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|%R|%B|)]%B[ansi(hw,|)][ansi(%q2%q3,[space(5)]%/|\\[space(5)])][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|)]%B%B%B[ansi(hx,\\[space(23)]/)]%B%B%B[ansi(hw,|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>70,hwG,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|%R|%B|)]%B[ansi(hw,|)][ansi(%q2%q3,%B%B%B_||%B||_%B%B%B)][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|)]%B%B%B%B[ansi(hx,%\)][space(6)][ansi(hw,[repeat(_,10)])][space(5)][ansi(hx,%/)]%B%B%B%B[ansi(hw,|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>60,hwY,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|%R|%B|)]%B[ansi(hw,|)][ansi(%q2%q3,%B%B%/__%\_%/__%\%B%B)][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|%B%B%B%B_)][ansi(hx,%\)][ansi(huw,%B%B%B%B%/%BJUMP%B[ljust(trunc(mul(sub(1.0,fdiv(hs_cooldown(%!,JUMP DRIVE),60)),100))%%,4)]%\%B%B%B)][ansi(hx,%/)][ansi(hw,_%B%B%B%B|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>50,hwY,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|)]
+&DESCRIBE3 Console Parent=[ansi(hx,|%B|)]%B[ansi(hw,|)][ansi(%q2hw,[repeat(_,13)])][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|%B%B%B%/)]%B[ansi(huw,[space(5)]COORDINATES[space(5)])]%B[ansi(hw,%\%B%B%B|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,WhW,>40,hwY,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|%R|%B|)]%B[ansi(hw,|)][ansi(huw,%BAFT%B%B%B%B[rjust(%q1%%,4)]%B)][ansi(hw,|)]%B[ansi(hx,|)]%B%B[ansi(hw,|%B%B%/%B%/)]%B[ansi(hx,X:)][ansi(hw,[rjust([hs_get(%!,x)],17)])]%B[ansi(hw,%\%B%\%B%B|)]%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>30,hwY,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|%R%\%B%\[repeat(_,17)]|)]%B%B%B[ansi(hw,%\%/%B%/)]%B%B[ansi(hx,Y:)][ansi(hw,[rjust([hs_get(%!,y)],17)])]%B%B[ansi(hw,%\%B%\%/)]%B%B%B[ansi(hx,||)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>20,hwR,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|%R%B%\[space(19)]%\)][space(5)][ansi(hw,|)]%B%B[ansi(hx,Z:)][ansi(hw,[rjust([hs_get(%!,z)],17)])]%B%B[ansi(hw,|)][space(5)][ansi(hx,%/_|)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>10,hwR,hw),____)][ansi(hw,|)]%B%B[ansi(hx,|)]
+&DESCRIBE4 Console Parent=%B[ansi(hx,|)]%B[ansi(hw,Current Frequency)]%B[ansi(hx,_%\)]%B%B%B%B[ansi(hw,%\_____)][rjust([ansi(hw,[hs_get(%!,xyhead)])],6)][ansi(hx,m)][ljust([ansi(hw,[hs_get(%!,zhead)])],6)][ansi(hw,_____%/)][space(4)][ansi(hx,%/__|)]%B%B[ansi(hw,|)][ansi(switch(%q0,<0,Whw,>5,hwR,hw),____)][ansi(hw,|)]%b%B[ansi(hx,|%R%B|%B---%[)]%B[center([ansi(hw,if(v(MANNED),get_transmit(v(MANNED))))],6)]%B[ansi(hx,%]---%B%/%B%/|)][space(9)][ansi(hw,%\)][ansi(huw,%B%B%BCOURSE%B%B)][ansi(hw,%/)][space(9)][ansi(hx,|%B%B%B%\)]%B%B%B[ansi(hw,HULL)]%B%B%B[ansi(hx,%/%R%B%|)]%B[ansi(huw,[center(QUADRANT,15)])]%B[ansi(hx,|%B%/%B|)]%B[ansi(hw,________%/%B%BIDENTITY%B%\________)]%B[ansi(hx,|%B%B__%\________%/__%R%B|[ansi(hw,|)][ansi(huw,[center(left(if(hs_get(%!,UNIVERSE),name(hs_get(%!,UNIVERSE)),name(hs_get(firstof(hs_get(%!,DOCKED),hs_get(%!,LANDED)),UNIVERSE))),15),15)])][ansi(hw,|)][ansi(hx,|%/%B%B|)][ansi(hw,|)][ansi(huw,[center([hs_get(%!,name)]%([xget(default(HSNAV,%!),ident)]%),29)])][ansi(hw,|)][ansi(hx,|%B|)][ansi(huw,[center([switch(1,t(hs_get(%!,DOCKED)),DOCKED,t(hs_get(%!,LANDED)),LANDED,t(hs_get(%!,LINKED)),LINKED)],14)])][ansi(hx,|%R%b%b%\[repeat(_,16)]%/%B%B%B%B%\[repeat(_,29)]%/%B%B`--------------')]%r%b%b[ansi(hx,%/)]%b[ansi(hw,AUTOPILOT%b%b[if(hs_get(%!,navmode),%bON,OFF)])]%b[ansi(hx,%\[repeat(_,52)]%r%b|)]%b[ansi(hw,[ljust(if(hasflag(setr(5,extract(setr(4,hs_get(%!,WAYPOINT)),1,1)),HS_UNIVERSE),name(%q5),if(t(%q5),hs_get(%q5,name))),19)]%b%bX:%b[rjust(extract(%q4,2,1),10)]%b%b%b%bY:%b[rjust(extract(%q4,3,1),10)]%b%b%b%bZ:%b[rjust(extract(%q4,4,1),10)]%b)][ansi(hx,|%r%b`[repeat(-,70)]')])]
+&ENGINE Console Parent=#13
+@set Console Parent/ENGINE=no_command
+&HEARTBEAT Console Parent=generic_heartbeat
+&HULL Console Parent=#37
+@set Console Parent/HULL=no_command
+&NAMEFORMAT Console Parent=butt
+@set Console Parent/NAMEFORMAT=no_command prefixmatch
+&REACTOR Console Parent=#18
+@set Console Parent/REACTOR=no_command
+&SALVAGE_COOLDOWN Console Parent=300
+&SENSOR Console Parent=#28
+@set Console Parent/SENSOR=no_command
+&SHIELD Console Parent=#38
+@set Console Parent/SHIELD=no_command
+&TUTORIAL Console Parent=Need assistance? See [command(HELP QUICKSTART)] for a minimal introduction to basic navigation and combat. See [command(HELP TUTORIAL)] for a follow-along walkthrough of various space flight activities.
+&UPDATE_PROXIMITY Console Parent=generic_proximity
