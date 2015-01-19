@@ -1,0 +1,105 @@
+@@ Laser Cannon MkI (#31)
+@create Laser Cannon MkI
+@link Laser Cannon MkI = #0
+@set Laser Cannon MkI = SAFE
+@set Laser Cannon MkI = NO_COMMAND
+@set Laser Cannon MkI = HS_WEAPON
+&ACCURACY Laser Cannon MkI=85
+&CONDITION Laser Cannon MkI=0
+&DAMAGE Laser Cannon MkI=100
+&MAXPOWER Laser Cannon MkI=0
+&POWER Laser Cannon MkI=0.0
+&RANGE Laser Cannon MkI=20
+&RELOAD Laser Cannon MkI=10
+&SPEED Laser Cannon MkI=0
+&TYPE Laser Cannon MkI=WEAPON
+@@ Dart HS Missile (#32)
+@create Dart HS Missile
+@link Dart HS Missile = #0
+@set Dart HS Missile = SAFE
+@set Dart HS Missile = NO_COMMAND
+@set Dart HS Missile = HS_WEAPON
+&ACCURACY Dart HS Missile=70
+&CONDITION Dart HS Missile=0
+&DAMAGE Dart HS Missile=100
+&MAXPOWER Dart HS Missile=0.0
+&POWER Dart HS Missile=0.0
+&RANGE Dart HS Missile=20
+&RELOAD Dart HS Missile=10
+&SPEED Dart HS Missile=35
+&TYPE Dart HS Missile=MISSILE
+@@ Reaper Cannon MkI (#33)
+@create Reaper Cannon MkI
+@link Reaper Cannon MkI = #0
+@set Reaper Cannon MkI = SAFE
+@set Reaper Cannon MkI = NO_COMMAND
+@set Reaper Cannon MkI = HS_WEAPON
+&ACCURACY Reaper Cannon MkI=70
+&CONDITION Reaper Cannon MkI=0
+&DAMAGE Reaper Cannon MkI=35
+&MAXPOWER Reaper Cannon MkI=10.0
+&POWER Reaper Cannon MkI=3.0
+&RANGE Reaper Cannon MkI=20
+&RELOAD Reaper Cannon MkI=0
+&SPEED Reaper Cannon MkI=0
+&TYPE Reaper Cannon MkI=CANNON
+@@ Reaper Emitter MkI (#34)
+@create Reaper Emitter MkI
+@link Reaper Emitter MkI = #0
+@set Reaper Emitter MkI = SAFE
+@set Reaper Emitter MkI = NO_COMMAND
+@set Reaper Emitter MkI = HS_WEAPON
+&ACCURACY Reaper Emitter MkI=70
+&CONDITION Reaper Emitter MkI=0
+&DAMAGE Reaper Emitter MkI=20
+&MAXPOWER Reaper Emitter MkI=10.0
+&POWER Reaper Emitter MkI=1.0
+&RANGE Reaper Emitter MkI=20
+&RELOAD Reaper Emitter MkI=0
+&SPEED Reaper Emitter MkI=0
+&TYPE Reaper Emitter MkI=EMITTER
+@@ Surplus Wiretap MkI (#35)
+@create Surplus Wiretap MkI
+@link Surplus Wiretap MkI = #0
+@set Surplus Wiretap MkI = SAFE
+@set Surplus Wiretap MkI = NO_COMMAND
+@set Surplus Wiretap MkI = HS_WEAPON
+&ACCURACY Surplus Wiretap MkI=70
+&CONDITION Surplus Wiretap MkI=0
+&DAMAGE Surplus Wiretap MkI=100
+&MAXPOWER Surplus Wiretap MkI=0
+&POWER Surplus Wiretap MkI=0
+&RANGE Surplus Wiretap MkI=20
+&RELOAD Surplus Wiretap MkI=10
+&SPEED Surplus Wiretap MkI=0
+&TYPE Surplus Wiretap MkI=WIRETAP
+@@ Surplus Capacitor MkI (#36)
+@create Surplus Capacitor MkI
+@link Surplus Capacitor MkI = #0
+@set Surplus Capacitor MkI = SAFE
+@set Surplus Capacitor MkI = NO_COMMAND
+@set Surplus Capacitor MkI = HS_WEAPON
+&ACCURACY Surplus Capacitor MkI=0
+&CONDITION Surplus Capacitor MkI=0
+&DAMAGE Surplus Capacitor MkI=25
+&MAXPOWER Surplus Capacitor MkI=10
+&POWER Surplus Capacitor MkI=3
+&RANGE Surplus Capacitor MkI=20
+&RELOAD Surplus Capacitor MkI=0
+&SPEED Surplus Capacitor MkI=0
+&TYPE Surplus Capacitor MkI=CAPACITOR
+@@ Surplus Booster MkI (#37)
+@create Surplus Booster MkI
+@link Surplus Booster MkI = #0
+@set Surplus Booster MkI = SAFE
+@set Surplus Booster MkI = NO_COMMAND
+@set Surplus Booster MkI = HS_WEAPON
+&ACCURACY Surplus Booster MkI=70
+&CONDITION Surplus Booster MkI=0
+&DAMAGE Surplus Booster MkI=35
+&MAXPOWER Surplus Booster MkI=10.0
+&POWER Surplus Booster MkI=3.0
+&RANGE Surplus Booster MkI=20
+&RELOAD Surplus Booster MkI=0
+&SPEED Surplus Booster MkI=0
+&TYPE Surplus Booster MkI=BOOSTER
