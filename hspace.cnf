@@ -1,0 +1,84 @@
+# start the space system when the mush starts?
+AUTOSTART=1
+
+# forbid puppets from manning consoles?
+FORBID_PUPPETS=0
+
+# dbref of the player to use for space actions
+SPACE_WIZ=3
+
+# ship cycle interval in seconds
+CYCLE_INTERVAL=1
+
+# number of secs before a console is considered idle
+IDLE_TIMEOUT=300
+
+# velocity boost of afterburners
+BURN_MULTIPLIER=3
+
+# object array sizes
+MAX_UNIVERSES=200
+MAX_CELESTIALS=1000
+MAX_SHIPS=2000
+MAX_MISSIONS=1000
+
+##############
+#### Distances
+
+# max comm distance
+MAX_COMM_DIST=1000
+
+# max distance away from waypoint when we stop
+MAX_WAYPOINT_DIST=5
+
+# max docking distance
+MAX_DOCK_DIST=5
+
+# max landing distance
+MAX_LAND_DIST=5
+
+# max boarding link distance
+MAX_BOARD_DIST=5
+
+# max wormhole travel distance
+MAX_GATE_DIST=5
+
+# max cargo transfer distance
+MAX_CARGO_DIST=5
+
+# max size (nconsoles) of a ship that can dock inside another
+MAX_DOCK_SIZE=4
+
+
+######################
+#### Standard messages
+
+# wormhome jump message
+WORMHOLE_TRAVEL=The viewscreen shimmers and sparkles as you travel through a jump point.
+
+LIFT_OFF=The ship sways and bumps as it lifts off.
+ENGINES_ACTIVATING=You feel a sudden rumble as the engines activate.
+
+LANDING_MSG=The ship sways and bumps as it makes contact with the ground surface.
+BEGIN_DESCENT=The ship shudders as the drop rockets engage and it begins to descend.
+
+DOCKING_MSG=The ship sways and bumps as it makes contact with the docking bay.
+BEGIN_DOCKING=The engines shudder as the docking systems engage and the ship glides forward.
+
+SPEED_INCREASE=You feel a sudden jerk as the ship speeds up.
+SPEED_DECREASE=You feel the ship begin to slow.
+
+ENGINE_REVERSE=You feel a sudden and powerful force as the reverse thrusters engage.
+ENGINE_FORWARD=You feel a sudden and powerful force as the main engines engage.
+
+SPEED_HALT=You feel a slight force as the ship glides to a halt.
+
+ENGAGE_AFTERBURNER=The ship hums loudly as it engages afterburners.
+DISENGAGE_AFTERBURNER=The engine roar dies down as afterburners disengage.
+
+NOTIFY_ENGAGE=A blue haze envelopes the ship as it engages afterburners.
+NOTIFY_DISENGAGE=A trail of blue haze dissipates as the ship disengages afterburners.
+
+SHIP_IS_DOCKING=The ship is currently in docking procedures.
+SHIP_IS_UNDOCKING=The ship is currently undocking.
+SHIP_IS_DOCKED=Ship is currently docked.
