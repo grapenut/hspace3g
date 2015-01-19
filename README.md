@@ -23,6 +23,6 @@ Quote the parent files. You will need to update dbrefs on attributes to match th
 
 OBJECTS
 -------
-Just @create objects and set the appropriate flag. Use @space/load [<object>] to load/reload objects. HELP SPACE ADMIN and HELP SPACE CREATE will get you started on creating objects and setting the appropriate attributes.
+Just @create objects and set the appropriate flag. Use @space/load [\<object\>] to load/reload objects. HELP SPACE ADMIN and HELP SPACE CREATE will get you started on creating objects and setting the appropriate attributes.
 
 -grapenut
