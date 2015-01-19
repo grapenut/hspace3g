@@ -1,0 +1,72 @@
+@@ Surplus Durasteel MkI (#21)
+@create Surplus Durasteel MkI
+@link Surplus Durasteel MkI = #0
+@set Surplus Durasteel MkI = SAFE
+@set Surplus Durasteel MkI = NO_COMMAND
+@set Surplus Durasteel MkI = HS_COMPONENT
+&CONDITION Surplus Durasteel MkI=0
+&EFFICIENCY Surplus Durasteel MkI=0
+&MAXENERGY Surplus Durasteel MkI=200
+&RATE Surplus Durasteel MkI=10
+&STRENGTH Surplus Durasteel MkI=0
+&TYPE Surplus Durasteel MkI=hull
+@@ Surplus Shield MkI (#22)
+@create Surplus Shield MkI
+@link Surplus Shield MkI = #0
+@set Surplus Shield MkI = SAFE
+@set Surplus Shield MkI = NO_COMMAND
+@set Surplus Shield MkI = HS_COMPONENT
+&CONDITION Surplus Shield MkI=0
+&EFFICIENCY Surplus Shield MkI=0
+&MAXENERGY Surplus Shield MkI=200
+&RATE Surplus Shield MkI=10
+&STRENGTH Surplus Shield MkI=0
+&TYPE Surplus Shield MkI=shield
+@@ Surplus Reactor MkI (#23)
+@create Surplus Reactor MkI
+@link Surplus Reactor MkI = #0
+@set Surplus Reactor MkI = SAFE
+@set Surplus Reactor MkI = NO_COMMAND
+@set Surplus Reactor MkI = HS_COMPONENT
+&CONDITION Surplus Reactor MkI=0
+&EFFICIENCY Surplus Reactor MkI=100
+&MAXENERGY Surplus Reactor MkI=100
+&RATE Surplus Reactor MkI=10
+&STRENGTH Surplus Reactor MkI=1
+&TYPE Surplus Reactor MkI=reactor
+@@ Surplus Engine MkI (#24)
+@create Surplus Engine MkI
+@link Surplus Engine MkI = #0
+@set Surplus Engine MkI = SAFE
+@set Surplus Engine MkI = NO_COMMAND
+@set Surplus Engine MkI = HS_COMPONENT
+&CONDITION Surplus Engine MkI=0
+&EFFICIENCY Surplus Engine MkI=10
+&MAXENERGY Surplus Engine MkI=100
+&RATE Surplus Engine MkI=300
+&STRENGTH Surplus Engine MkI=100
+&TYPE Surplus Engine MkI=engine afterburner
+@@ Surplus Sensor MkI (#25)
+@create Surplus Sensor MkI
+@link Surplus Sensor MkI = #0
+@set Surplus Sensor MkI = SAFE
+@set Surplus Sensor MkI = NO_COMMAND
+@set Surplus Sensor MkI = HS_COMPONENT
+&CONDITION Surplus Sensor MkI=0
+&EFFICIENCY Surplus Sensor MkI=1
+&MAXENERGY Surplus Sensor MkI=100
+&RATE Surplus Sensor MkI=10
+&STRENGTH Surplus Sensor MkI=10
+&TYPE Surplus Sensor MkI=sensor
+@@ Surplus Computer MkI (#26)
+@create Surplus Computer MkI
+@link Surplus Computer MkI = #0
+@set Surplus Computer MkI = SAFE
+@set Surplus Computer MkI = NO_COMMAND
+@set Surplus Computer MkI = HS_COMPONENT
+&CONDITION Surplus Computer MkI=0
+&EFFICIENCY Surplus Computer MkI=10
+&MAXENERGY Surplus Computer MkI=100
+&RATE Surplus Computer MkI=10
+&STRENGTH Surplus Computer MkI=10
+&TYPE Surplus Computer MkI=computer
