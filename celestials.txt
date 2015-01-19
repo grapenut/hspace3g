@@ -1,0 +1,73 @@
+@@ Sim Space (#101)
+@create Sim Space
+@link Sim Space = #10
+@set Sim Space = SAFE
+@set Sim Space = NO_COMMAND
+@set Sim Space = HS_UNIVERSE
+&HSID Sim Space=0
+@@ Sim Planet (#51)
+@create Sim Planet
+@link Sim Planet = #10
+@set Sim Planet = SAFE
+@set Sim Planet = NO_COMMAND
+@set Sim Planet = HS_CELESTIAL
+&HSID Sim Planet=0
+&IDENT Sim Planet=STELTEK
+&MASS Sim Planet=1
+&RADIUS Sim Planet=50
+&TYPE Sim Planet=PLANET
+&UNIVERSE Sim Planet=#101
+&X Sim Planet=-915.000000
+&Y Sim Planet=-681.000000
+&Z Sim Planet=910.000000
+@@ Sim Star (#61)
+@create Sim Star
+@link Sim Star = #10
+@set Sim Star = SAFE
+@set Sim Star = NO_COMMAND
+@set Sim Star = HS_CELESTIAL
+&HSID Sim Star=10
+&IDENT Sim Star=Yellow Dwarf
+&MASS Sim Star=1
+@set Sim Star/MASS=no_command
+&RADIUS Sim Star=1000
+@set Sim Star/RADIUS=no_command
+&TYPE Sim Star=STAR
+&UNIVERSE Sim Star=#101
+&X Sim Star=0.000000
+&Y Sim Star=0.000000
+&Z Sim Star=0.000000
+@@ Sim Asteroids (#127)
+@create Sim Asteroids
+@link Sim Asteroids = #10
+@set Sim Asteroids = SAFE
+@set Sim Asteroids = NO_COMMAND
+@set Sim Asteroids = HS_CELESTIAL
+&HSID Sim Asteroids=33
+@set Sim Asteroids/HSID=wizard
+&IDENT Sim Asteroids=Asteroid Field
+&MASS Sim Asteroids=1
+&RADIUS Sim Asteroids=50
+&TYPE Sim Asteroids=ASTEROID
+&UNIVERSE Sim Asteroids=#101
+&X Sim Asteroids=1400.000000
+&Y Sim Asteroids=1400.000000
+&Z Sim Asteroids=0.000000
+@@ Sim Anomaly (#128)
+@create Sim Anomaly
+@link Sim Anomaly = #10
+@set Sim Anomaly = SAFE
+@set Sim Anomaly = NO_COMMAND
+@set Sim Anomaly = HS_CELESTIAL
+&FN_ENTER Sim Anomaly=add_missionitem(xget(%0,manned),#340)
+&HSID Sim Anomaly=34
+@set Sim Anomaly/HSID=wizard
+&MASS Sim Anomaly=10
+&RADIUS Sim Anomaly=10
+&TYPE Sim Anomaly=ANOMALY
+&UNIVERSE Sim Anomaly=#101
+&X Sim Anomaly=1500.000000
+&Y Sim Anomaly=1500.000000
+&Z Sim Anomaly=0.000000
+GAME: Game paused.
+GAME: Game unpaused.
