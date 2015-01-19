@@ -1,3 +1,5 @@
+# goes in pennmush/game/space, for some odd reason
+
 # start the space system when the mush starts?
 AUTOSTART=1
 
