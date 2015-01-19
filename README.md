@@ -1,6 +1,8 @@
 # hspace3g
 Modern HSpace3 clone made by grapenut.
 
+Full scale demonstration can be had by connecting to grapenut.org:4201.
+
 INSTALLATION
 ------------
 Add the following flags using @flag/add:
