@@ -1,0 +1,12 @@
+@flag/add HS_ADMIN
+@flag/add HS_CELESTIAL
+@flag/add HS_COMM=@
+@flag/add HS_COMPONENT=&
+@flag/add HS_CONSOLE
+@flag/add HS_DRONE
+@flag/add HS_MISSION=y
+@flag/add HS_SHIP
+@flag/add HS_SHIPOBJ=$
+@flag/add HS_SIM
+@flag/add HS_UNIVERSE
+@flag/add HS_WEAPON=>
