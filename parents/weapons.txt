@@ -1,6 +1,8 @@
-@@ Laser Cannon MkI (#31)
+@@
+@@
+@@ Laser Cannon MkI
+@@
 @create Laser Cannon MkI
-@link Laser Cannon MkI = #0
 @set Laser Cannon MkI = SAFE
 @set Laser Cannon MkI = NO_COMMAND
 @set Laser Cannon MkI = HS_WEAPON
@@ -13,9 +15,11 @@
 &RELOAD Laser Cannon MkI=10
 &SPEED Laser Cannon MkI=0
 &TYPE Laser Cannon MkI=WEAPON
-@@ Dart HS Missile (#32)
+@@
+@@
+@@ Dart HS Missile
+@@
 @create Dart HS Missile
-@link Dart HS Missile = #0
 @set Dart HS Missile = SAFE
 @set Dart HS Missile = NO_COMMAND
 @set Dart HS Missile = HS_WEAPON
@@ -28,9 +32,11 @@
 &RELOAD Dart HS Missile=10
 &SPEED Dart HS Missile=35
 &TYPE Dart HS Missile=MISSILE
-@@ Reaper Cannon MkI (#33)
+@@
+@@
+@@ Reaper Cannon MkI
+@@
 @create Reaper Cannon MkI
-@link Reaper Cannon MkI = #0
 @set Reaper Cannon MkI = SAFE
 @set Reaper Cannon MkI = NO_COMMAND
 @set Reaper Cannon MkI = HS_WEAPON
@@ -43,9 +49,11 @@
 &RELOAD Reaper Cannon MkI=0
 &SPEED Reaper Cannon MkI=0
 &TYPE Reaper Cannon MkI=CANNON
-@@ Reaper Emitter MkI (#34)
+@@
+@@
+@@ Reaper Emitter MkI
+@@
 @create Reaper Emitter MkI
-@link Reaper Emitter MkI = #0
 @set Reaper Emitter MkI = SAFE
 @set Reaper Emitter MkI = NO_COMMAND
 @set Reaper Emitter MkI = HS_WEAPON
@@ -58,9 +66,11 @@
 &RELOAD Reaper Emitter MkI=0
 &SPEED Reaper Emitter MkI=0
 &TYPE Reaper Emitter MkI=EMITTER
-@@ Surplus Wiretap MkI (#35)
+@@
+@@
+@@ Surplus Wiretap MkI
+@@
 @create Surplus Wiretap MkI
-@link Surplus Wiretap MkI = #0
 @set Surplus Wiretap MkI = SAFE
 @set Surplus Wiretap MkI = NO_COMMAND
 @set Surplus Wiretap MkI = HS_WEAPON
@@ -73,9 +83,11 @@
 &RELOAD Surplus Wiretap MkI=10
 &SPEED Surplus Wiretap MkI=0
 &TYPE Surplus Wiretap MkI=WIRETAP
-@@ Surplus Capacitor MkI (#36)
+@@
+@@
+@@ Surplus Capacitor MkI
+@@
 @create Surplus Capacitor MkI
-@link Surplus Capacitor MkI = #0
 @set Surplus Capacitor MkI = SAFE
 @set Surplus Capacitor MkI = NO_COMMAND
 @set Surplus Capacitor MkI = HS_WEAPON
@@ -88,9 +100,11 @@
 &RELOAD Surplus Capacitor MkI=0
 &SPEED Surplus Capacitor MkI=0
 &TYPE Surplus Capacitor MkI=CAPACITOR
-@@ Surplus Booster MkI (#37)
+@@
+@@
+@@ Surplus Booster MkI
+@@
 @create Surplus Booster MkI
-@link Surplus Booster MkI = #0
 @set Surplus Booster MkI = SAFE
 @set Surplus Booster MkI = NO_COMMAND
 @set Surplus Booster MkI = HS_WEAPON
