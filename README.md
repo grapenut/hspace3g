@@ -5,23 +5,33 @@ Full scale demonstration can be had by connecting to grapenut.org:4201.
 
 INSTALLATION
 ------------
-Add the following flags using @flag/add:
+
+The following flags must be added prior to installation:
 HS_ADMIN, HS_CELESTIAL, HS_COMM (@), HS_COMPONENT (&), HS_CONSOLE, HS_DRONE, HS_MISSION (y), HS_SHIP, HS_SHIPOBJ ($), HS_SIM, HS_UNIVERSE, HS_WEAPON (>)
 
-Move hspace.hlp to pennmush/game/txt/hlp/
+You may quote the __parents/flags.txt__ file to add them automatically.
 
-Move hspace.cnf to pennmush/game/space/
+Move __hspace.hlp__ to __pennmush/game/txt/hlp/__.
 
-Move the space/ directory to pennmush/src/
+Move __hspace.cnf__ to __pennmush/game/space/__.
 
-Move hspace.patch to pennmush/src/ and execute:
-  patch -p0 < hspace.patch
+Move the __space/__ directory to __pennmush/src/__.
 
-Change to the pennmush/src/space/ directory and type make. You may need to type make in pennmush/src/ first (it's ok if it fails, just need to update command switches).
+Move __hspace.patch__ to __pennmush/src/__ and execute:
+```
+patch -p0 < hspace.patch
+```
+
+Change to the __pennmush/src/space/__ directory and type `make`. You may need to type
+`make` in __pennmush/src/__ first (it's ok if it fails, just need to update command switches).
 
 PARENTS
 -------
-Quote the parent files. You will need to update dbrefs on attributes to match those of the created objects.
+Quote the parent files in the following order:
+- celestials.txt
+- components.txt
+- weapons.txt
+- console.txt
 
 OBJECTS
 -------
