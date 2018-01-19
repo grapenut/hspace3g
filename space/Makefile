@@ -1,5 +1,5 @@
 # Makefile for HSpace
-CFLAGS=$(CCFLAGS) -Wno-unused-parameter -DHSPACE -I../.. -I../../hdrs -g
+CFLAGS=$(CCFLAGS) -Wno-unused-parameter -DHSPACE -I../.. -I../../hdrs -g -std=gnu99
 
 C_FILES := $(shell ls *.c)
 O_FILES = $(C_FILES:.c=.o)

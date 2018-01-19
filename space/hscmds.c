@@ -472,10 +472,10 @@ void man_console(dbref player, char *where)
   if (con)
   {
     notify(player, tprintf("You man the %s (%s%s%s).", Name(console),
-          ANSI_HILITE, STR(hs_console_types, con->type), ANSI_NORMAL));
+          ANSI_HILITE, STR(hs_console_types, (long) con->type), ANSI_NORMAL));
     notify_except(console, Location(console), player,
     	  tprintf("%s mans the %s (%s%s%s).", Name(player), Name(console),
-    	  ANSI_HILITE, STR(hs_console_types, con->type), ANSI_NORMAL), 0);
+    	  ANSI_HILITE, STR(hs_console_types, (long) con->type), ANSI_NORMAL), 0);
   } else {
     notify(player, tprintf("You man the %s.", Name(console)));
     notify_except(console, Location(console), player,
@@ -1303,7 +1303,8 @@ void send_com(dbref from, char *arg_left, char *arg_right)
     
     /* check all frequencies to see if we need to send to this com */
     send_to_com = 0;
-    snprintf(buff, 127, atr_value(a));
+    //snprintf(buff, 127, atr_value(a));
+    strncpy(buff, atr_value(a), 127);
     s = buff;
     while (s)
     {

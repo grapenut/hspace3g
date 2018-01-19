@@ -1,6 +1,7 @@
 #ifndef __HSDEFINES_H
 #define __HSDEFINES_H
 
+#include <stdint.h>
 
 /**************************************************/
 /* basic constants and aliases */
@@ -17,7 +18,7 @@
 
 #define MAX_CONSOLES	3
 
-#define getrandom(x)	(get_random32(0,x))
+#define getrandom(x)	(get_random_u32(0,x))
 
 #define SPACEWALL(x)  (flag_broadcast("HS_ADMIN", 0, x))
 
@@ -77,7 +78,7 @@
 #define PSTRINGMAP(x)		{#x, (void *) &HS_ ## x}
 
 /* stringmap string macro */
-#define STR(x,y)		(stringmap_string(x,(void*)(y)))
+#define STR(x,y)		(stringmap_string(x,(void *) (intptr_t)(y)))
 
 
 /************************************************/

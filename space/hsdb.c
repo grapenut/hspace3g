@@ -1,4 +1,5 @@
 
+#include <stdint.h>
 #include "hspace.h"
 
 /* permanent space objects live inside fixed length arrays */
@@ -216,7 +217,7 @@ int parse_flags(hstringmap *map, char *buff)
 
   s = buff;
   r = split_token(&s, ' ');
-  f = (int) stringmap_value(map, r);
+  f = (int) (intptr_t) stringmap_value(map, r);
   if (f)
   {
     FlagOn(flags, f);
@@ -225,7 +226,7 @@ int parse_flags(hstringmap *map, char *buff)
   while (s)
   {
     r = split_token(&s, ' ');
-    f = (int) stringmap_value(map, r);
+    f = (int) (intptr_t) stringmap_value(map, r);
     if (f)
     {
       FlagOn(flags, f);
@@ -249,7 +250,7 @@ int atr_parse_flags(dbref obj, hstringmap *map, char *name)
   if (!a)
     return 0x0;
 
-  buff = safe_atr_value(a);
+  buff = safe_atr_value(a, "FLAGSTRING");
   
   f = parse_flags(map, buff);
   

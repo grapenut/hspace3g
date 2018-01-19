@@ -147,8 +147,8 @@ int fire_gun(hship *ship, hconsole *con, hweapon *gun, hcontact *q)
     sprintf(defense, "(%s%3.0f%s) Enemy weapons fire is absorbed by the shields!", ANSI_RED, damage_shield, ANSI_NORMAL);
     break;
   default:
-    sprintf(offense, "(%s%3.0f%s) Weapons fire is ineffective.", ANSI_GREEN, ANSI_NORMAL);
-    sprintf(defense, "(%s%3.0f%s) Enemy weapons fire is ineffective.", ANSI_RED, ANSI_NORMAL);
+    sprintf(offense, "(%s%3.0f%s) Weapons fire is ineffective.", ANSI_GREEN, 0.0, ANSI_NORMAL);
+    sprintf(defense, "(%s%3.0f%s) Enemy weapons fire is ineffective.", ANSI_RED, 0.0, ANSI_NORMAL);
     break;
   }
   
@@ -159,7 +159,7 @@ int fire_gun(hship *ship, hconsole *con, hweapon *gun, hcontact *q)
   /* only notify other contacts if this is a primary weapon */
   if (HasFlag(gun->type, HS_PRIMARY))
   {
-    snprintf(name, 63, ship_name(ship));
+    strncpy(name, ship_name(ship), 63);
     notify_contacts(ship, ContactShip(q), tprintf("%s%s%s fires weapons at %s%s%s!",
          ANSI_HILITE, name, ANSI_NORMAL, ANSI_HILITE, ShipName(q->contact), ANSI_NORMAL));
   }
@@ -240,7 +240,7 @@ int fire_missile(hship *ship, hconsole *con, hweapon *gun, hcontact *q)
   /* only notify other contacts if it's the primary weapon slot */
   if (HasFlag(gun->type, HS_PRIMARY))
   {
-    snprintf(name, 63, ship_name(ship));
+    strncpy(name, ship_name(ship), 63);
     notify_contacts(ship, ContactShip(q), tprintf("%s%s%s fires a missile at %s%s%s!",
          ANSI_HILITE, name, ANSI_NORMAL, ANSI_HILITE, ShipName(q->contact), ANSI_NORMAL));
   }

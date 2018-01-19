@@ -324,7 +324,7 @@ void hs_prompt(dbref console)
   if (!a)
     return;
   
-  prompt = safe_atr_value(a);
+  prompt = safe_atr_value(a, "HSPROMPT");
   sp = parse_prompt(ship, con, prompt);
   free(prompt);
   
@@ -463,7 +463,7 @@ void hs_prompt(dbref console)
     }
     else if (ship->wp_contact && ship->wp_contact->contact)
     {
-      safe_format(buff, &bp, "%s%s|%s@%s %.0f", ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, ContactDistance(ship, ship->wp_contact), ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
+      safe_format(buff, &bp, "%s%s|%s@%s %.0f", ANSI_HILITE, ANSI_BLUE, ANSI_GREEN, ANSI_NORMAL, ContactDistance(ship, ship->wp_contact));
     }
   }
   
@@ -566,7 +566,7 @@ void notify_srooms(hship *tship, dbref except, char *mesg)
   
   if ((a = atr_get(tship->objnum, "ROOMS")) == NULL)
     return;
-  buff = safe_atr_value(a);
+  buff = safe_atr_value(a, "ROOMS");
   s = buff;
   
   r = split_token(&s, ' ');

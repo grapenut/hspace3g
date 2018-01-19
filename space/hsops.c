@@ -309,7 +309,7 @@ int fire_wiretap(hship *ship, hconsole *con, hweapon *gun, hcontact *q)
   /* only notify other contacts if it's a primary weapon */
   if (HasFlag(gun->type, HS_PRIMARY))
   {
-    snprintf(name, 63, ship_name(ship));
+    strncpy(name, ship_name(ship), 63);
     notify_contacts(ship, ContactShip(q), tprintf("%s%s%s hacks into %s%s%s!",
          ANSI_HILITE, name, ANSI_NORMAL, ANSI_HILITE, ShipName(q->contact), ANSI_NORMAL));
   }
@@ -399,7 +399,7 @@ int fire_emitter(hship *ship, hconsole *con, hweapon *gun, hcontact *q)
   /* only notify other contacts if it's a primary weapon */
   if (HasFlag(gun->type, HS_PRIMARY))
   {
-    snprintf(name, 63, ship_name(ship));
+    strncpy(name, ship_name(ship), 63);
     notify_contacts(ship, ContactShip(q), tprintf("%s%s%s emits particle beam at %s%s%s!",
          ANSI_HILITE, name, ANSI_NORMAL, ANSI_HILITE, ShipName(q->contact), ANSI_NORMAL));
   }

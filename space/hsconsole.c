@@ -895,7 +895,7 @@ void land_ship(dbref obj, char *arg_left, char *arg_right)
     hs_std_notice(obj, "That contact does not have any landing locations.");
     return;
   }
-  snprintf(buff, 511, atr_value(a));
+  strncpy(buff, atr_value(a), 511);
   s = buff;
   r = split_token(&s, ' ');
 
@@ -1279,7 +1279,7 @@ void dump_cargo(dbref con, char *which, char *amount)
     if (strncasecmp(AL_NAME(a), "CARGO_", 6))
       continue;
     
-    snprintf(name, 127, AL_NAME(a));
+    strncpy(name, AL_NAME(a), 127);
     s = name;
     r = split_token(&s, '_');
     
@@ -1386,7 +1386,7 @@ void add_equipment(dbref player, dbref obj)
     return;
   }
   
-  buff = safe_atr_value(a);
+  buff = safe_atr_value(a, "EQUIPMENT");
   if (!buff)
   {
     atr_add(player, "EQUIPMENT", unparse_dbref(obj), hs_options.space_wiz, 0);
@@ -1483,7 +1483,7 @@ void add_missionitem(dbref player, dbref obj)
     return;
   }
   
-  buff = safe_atr_value(a);
+  buff = safe_atr_value(a, "MISSIONITEMS");
   if (!buff)
   {
     atr_add(player, "MISSIONITEMS", unparse_dbref(obj), hs_options.space_wiz, 0);
@@ -1533,7 +1533,7 @@ int has_mission(dbref player, dbref m)
   if (!a)
     return 0;
     
-  buff = safe_atr_value(a);
+  buff = safe_atr_value(a, "MISSIONS");
   if (!buff)
     return 0;
   
@@ -1574,7 +1574,7 @@ int has_missionitem(dbref player, dbref m)
   if (!a)
     return 0;
     
-  buff = safe_atr_value(a);
+  buff = safe_atr_value(a, "MISSIONITEMS");
   if (!buff)
     return 0;
   
@@ -1832,7 +1832,7 @@ void cargo_manifest(dbref con)
     if (!s || !*s)
       continue;
     
-    snprintf(name2, 20, s);
+    strncpy(name2, s, 20);
     name2[21]='\0';
     len = strlen(name2);
     
@@ -1844,7 +1844,7 @@ void cargo_manifest(dbref con)
     len += strlen(value);
     
     if (len < 23)
-      snprintf(name, 23 - len, dots);
+      strncpy(name, dots, 23 - len);
     else
       strcpy(name, "");
     
@@ -2776,14 +2776,14 @@ void quick_status(dbref con)
 
   /* hull and shield names */
   if (RealGoodObject(tship->hull.objnum))
-    snprintf(name, 27, Name(tship->hull.objnum));
+    strncpy(name, Name(tship->hull.objnum), 27);
   else
-    snprintf(name, 27, "Hull offline.");
+    strncpy(name, "Hull offline.", 27);
 
   if (RealGoodObject(tship->shield.objnum))
-    snprintf(name2, 27, Name(tship->shield.objnum));
+    strncpy(name2, Name(tship->shield.objnum), 27);
   else
-    snprintf(name2, 27, "Shield offline.");
+    strncpy(name2, "Shield offline.", 27);
 
   /* hull and shield statistics */
   t = 100.0 * get_stat(tship, SYS_ARMOR) / get_stat(tship, SYS_MAX_ARMOR);
@@ -2803,14 +2803,14 @@ void quick_status(dbref con)
 
   /* reactor and engine names */
   if (RealGoodObject(tship->reactor.objnum))
-    snprintf(name, 27, Name(tship->reactor.objnum));
+    strncpy(name, Name(tship->reactor.objnum), 27);
   else
-    snprintf(name, 27, "Reactor offline.");
+    strncpy(name, "Reactor offline.", 27);
 
   if (RealGoodObject(tship->engine.objnum))
-    snprintf(name2, 27, Name(tship->engine.objnum));
+    strncpy(name2, Name(tship->engine.objnum), 27);
   else
-    snprintf(name2, 27, "Engine offline.");
+    strncpy(name2, "Engine offline.", 27);
 
   /* reactor and engine statistics */
   t = 100.0 * get_stat(tship, SYS_ENERGY)  / get_stat(tship, SYS_MAX_ENERGY);
@@ -2830,14 +2830,14 @@ void quick_status(dbref con)
 
   /* sensor and computer names */
   if (RealGoodObject(tship->sensor.objnum))
-    snprintf(name, 27, Name(tship->sensor.objnum));
+    strncpy(name, Name(tship->sensor.objnum), 27);
   else
-    snprintf(name, 27, "Sensor offline.");
+    strncpy(name, "Sensor offline.", 27);
 
   if (RealGoodObject(tship->computer.objnum))
-    snprintf(name2, 27, Name(tship->computer.objnum));
+    strncpy(name2, Name(tship->computer.objnum), 27);
   else
-    snprintf(name2, 27, "Computer offline.");
+    strncpy(name2, "Computer offline.", 27);
 
   /* sensor and computer statistics */
   t = 100.0 * get_stat(tship, SYS_FOCUS) / get_stat(tship, SYS_MAX_FOCUS);
@@ -3484,9 +3484,9 @@ void sensor_scan(dbref console, char *which)
 
     if (HasFlag(q->flags, HS_IDENTIFIED))
     {
-      snprintf(class, 63, atr_parse_string(dship->objnum, "CLASS"));
-      snprintf(ident, 63, atr_parse_string(dship->objnum, "IDENT"));
-      snprintf(name, 63, ship_name(dship));
+      strncpy(class, atr_parse_string(dship->objnum, "CLASS"), 63);
+      strncpy(ident, atr_parse_string(dship->objnum, "IDENT"), 63);
+      strncpy(name, ship_name(dship), 63);
     }
     else
     {
@@ -3581,7 +3581,7 @@ void sensor_scan(dbref console, char *which)
       
       if (RealGoodObject(dship->primary.objnum))
       {
-        snprintf(name, 15, Name(dship->primary.objnum));
+        strncpy(name, Name(dship->primary.objnum), 15);
         if (dship->primary.maxpower > 0)
           sprintf(ident, "%3.0f / %-3.0f ", dship->primary.curpower, get_wstat(dship, NULL, HS_PRIMARY | HS_MAX_POWER));
         else
@@ -3598,7 +3598,7 @@ void sensor_scan(dbref console, char *which)
 
       if (RealGoodObject(dship->secondary.objnum))
       {
-        snprintf(class, 15, Name(dship->secondary.objnum));
+        strncpy(class, Name(dship->secondary.objnum), 15);
         if (dship->secondary.maxpower > 0)
           sprintf(sdist, "%3.0f / %-3.0f ", dship->secondary.curpower, get_wstat(dship, NULL, HS_SECONDARY | HS_MAX_POWER));
         else
@@ -3647,7 +3647,7 @@ void sensor_scan(dbref console, char *which)
                
         if (RealGoodObject(dship->console[i].primary.objnum))
         {
-          snprintf(name, 63, Name(dship->console[i].primary.objnum));
+          strncpy(name, Name(dship->console[i].primary.objnum), 63);
           if (dship->console[i].primary.maxpower > 0)
             sprintf(ident, "%3.0f / %-3.0f ", dship->console[i].primary.curpower, get_wstat(dship, &(dship->console[i]), HS_PRIMARY | HS_MAX_POWER));
           else
@@ -3664,7 +3664,7 @@ void sensor_scan(dbref console, char *which)
 
         if (RealGoodObject(dship->console[i].secondary.objnum))
         {
-          snprintf(class, 63, Name(dship->console[i].secondary.objnum));
+          strncpy(class, Name(dship->console[i].secondary.objnum), 63);
           if (dship->console[i].secondary.maxpower > 0)
             sprintf(sdist, "%3.0f / %-3.0f ", dship->console[i].secondary.curpower, get_wstat(dship, &(dship->console[i]), HS_SECONDARY | HS_MAX_POWER));
           else
@@ -3711,8 +3711,8 @@ void sensor_scan(dbref console, char *which)
     {
       if (IsShip(cel->objnum) || IsDrone(cel->objnum))
       {
-        snprintf(class, 63, atr_parse_string(cel->objnum, "CLASS"));
-        snprintf(ident, 63, atr_parse_string(cel->objnum, "IDENT"));
+        strncpy(class, atr_parse_string(cel->objnum, "CLASS"), 63);
+        strncpy(ident, atr_parse_string(cel->objnum, "IDENT"), 63);
       }
       else if (HasFlag(cel->type, HS_DEBRIS))
       {
@@ -3727,20 +3727,20 @@ void sensor_scan(dbref console, char *which)
       }
       else if (HasFlag(cel->type, HS_WAYPOINT))
       {
-        snprintf(class, 63, STR(hs_object_types, HasFlag(cel->type, HS_OBJECT_FLAGS)));
+        strncpy(class, STR(hs_object_types, HasFlag(cel->type, HS_OBJECT_FLAGS)), 63);
         if (RealGoodObject(cel->objnum))
-          snprintf(ident, 63, atr_parse_string(cel->objnum, "IDENT"));
+          strncpy(ident, atr_parse_string(cel->objnum, "IDENT"), 63);
         else
-          snprintf(ident, 63, "internal");
+          strncpy(ident, "internal", 63);
           
       }
       else
       {
-        snprintf(class, 63, STR(hs_object_types, HasFlag(cel->type, HS_OBJECT_FLAGS)));
-        snprintf(ident, 63, atr_parse_string(cel->objnum, "IDENT"));
+        strncpy(class, STR(hs_object_types, HasFlag(cel->type, HS_OBJECT_FLAGS)), 63);
+        strncpy(ident, atr_parse_string(cel->objnum, "IDENT"), 63);
       }
       
-      snprintf(name, 63, celestial_name(cel));
+      strncpy(name, celestial_name(cel), 63);
     }
     else
     {
@@ -3856,7 +3856,7 @@ void sensor_scan(dbref console, char *which)
 	    ANSI_HILITE, ANSI_GREEN, ANSI_NORMAL, ANSI_HILITE, ANSI_BLUE, ANSI_NORMAL);
     notify(player, tbuf);
 
-    buff = safe_atr_value(a);
+    buff = safe_atr_value(a, "DROPPADS");
     s = buff;
     n = 0;
     r = split_token(&s, ' ');

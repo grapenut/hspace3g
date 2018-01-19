@@ -197,7 +197,7 @@ int fire_cannon(hship *ship, hconsole *con, hweapon *gun, hcontact *q)
   hs_std_sensor(ship, q, offense);
   hs_std_sensor(ContactShip(q), qptr, defense);
   
-  snprintf(name, 64, ship_name(ship));
+  strncpy(name, ship_name(ship), 63);
   notify_contacts(ship, ContactShip(q), tprintf("%s%s%s fires cannons at %s%s%s!",
        ANSI_HILITE, name, ANSI_NORMAL, ANSI_HILITE, ShipName(q->contact), ANSI_NORMAL));
 

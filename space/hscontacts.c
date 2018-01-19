@@ -68,10 +68,10 @@ int check_friend(hship *ship, hcontact *q)
   if (!b)
     return -1;
   
-  snprintf(id, 2, atr_value(a));
+  strncpy(id, atr_value(a), 2);
   fac = parse_flags(hs_factions, id);
 
-  snprintf(id, 2, atr_value(b));
+  strncpy(id, atr_value(b), 2);
   tfac = parse_flags(hs_factions, id);
   
   if (fac == tfac)
@@ -1488,7 +1488,7 @@ void sensor_report(dbref cship, char *arg_left)
     }
     else
     {
-      snprintf(name, 63, (char *) ContactName(q));
+      strncpy(name, (char *) ContactName(q), 63);
     }
     
     cbuf = contact_colorstring(tship, q);
@@ -1684,7 +1684,7 @@ void sensor_report(dbref cship, char *arg_left)
         break;
       default:
         sizesym = ' ';
-        snprintf(ident, 63, "");
+        strncpy(ident, "", 63);
         break;
       }
       

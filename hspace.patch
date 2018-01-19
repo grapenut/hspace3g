@@ -1,48 +1,22 @@
-*** cmdlocal.c	2013-07-29 23:05:37.000000000 -0500
---- cmdlocal.c	2014-12-04 23:15:53.000000000 -0600
+*** cmdlocal.c	Fri Jan 19 17:49:58 2018
+--- cmdlocal.c	Fri Jan 19 18:00:08 2018
 ***************
-*** 9,24 ****
-  /* Here are some includes you're likely to need or want.
-   */
-  #include "copyrite.h"
-! 
-  #include <string.h>
-- 
-- #include "cmds.h"
-- #include "command.h"
-  #include "conf.h"
-  #include "externs.h"
-- #include "flags.h"
-- #include "htab.h"
+*** 20,25 ****
+--- 20,27 ----
+  #include "htab.h"
   #include "parse.h"
   
-  extern HASHTAB htab_reserved_aliases;
-  
---- 9,25 ----
-  /* Here are some includes you're likely to need or want.
-   */
-  #include "copyrite.h"
-! #include "config.h"
-  #include <string.h>
-  #include "conf.h"
-  #include "externs.h"
-  #include "parse.h"
-+ #include "htab.h"
-+ #include "flags.h"
-+ #include "command.h"
-+ #include "cmds.h"
-+ #include "confmagic.h"
 + #include "hspace.h"
-  
++ 
   extern HASHTAB htab_reserved_aliases;
   
+  /* Called during the command init sequence before any commands are
 ***************
-*** 81,84 ****
---- 82,101 ----
+*** 80,83 ****
+--- 82,95 ----
     command_add("@SILLY", CMD_T_ANY, "WIZARD ROYALTY", "SEE_ALL",
                 "NOISY NOEVAL VERY", cmd_local_silly);
   #endif
-+ 
 + #ifdef HSPACE
 +   command_add("@SPACE", CMD_T_ANY | CMD_T_EQSPLIT, "WIZARD ROYALTY HS_SHIP HS_CONSOLE", NULL, "DUMP HALT LIST LOAD MOVE RECONFIGURE SPAWN START VERSION", cmd_space);
 +   command_add("@CONSOLE", CMD_T_THING | CMD_T_EQSPLIT, NULL, NULL, "ABORT BURN CLOSEBAY COMBATSTAT COOLDOWN DOCK DUMP ESTATUS ETA EXTEND FIRE GATE HACK HEADING LAND LAUNCH LINK LOCK MANIFEST NAVMODE OPENBAY PRIMARY PROMPT PVPOFF PVPON QUICKSTAT RETRACT SCAN SECONDARY SHUNT SPEED SREP STANCE STATUS SYSSTAT TAXI TRACTOR UNLINK VIEW WAYPOINT", cmd_console);
@@ -53,54 +27,26 @@
 +   command_add("MAN", CMD_T_ANY, NULL, NULL, "", cmd_man);
 +   command_add("UNMAN", CMD_T_ANY, NULL, NULL, "", cmd_unman);
 + #endif
-+ 
   }
-+ 
-+ 
-+ 
-+ 
-*** funlocal.c	2013-07-29 23:05:37.000000000 -0500
---- funlocal.c	2014-12-01 02:28:12.000000000 -0600
+*** funlocal.c	Fri Jan 19 17:49:58 2018
+--- funlocal.c	Fri Jan 19 17:59:10 2018
 ***************
-*** 12,26 ****
-  /* Here are some includes you're likely to need or want.
-   * If your functions are doing math, include <math.h>, too.
-   */
-- 
-  #include "copyrite.h"
-! 
-  #include <string.h>
-- 
-  #include "conf.h"
-  #include "externs.h"
-- #include "function.h"
+*** 22,27 ****
+--- 22,29 ----
+  #include "function.h"
   #include "parse.h"
   
-  void local_functions(void);
-  
---- 12,26 ----
-  /* Here are some includes you're likely to need or want.
-   * If your functions are doing math, include <math.h>, too.
-   */
-  #include "copyrite.h"
-! #include "config.h"
-  #include <string.h>
-  #include "conf.h"
-  #include "externs.h"
-  #include "parse.h"
-+ #include "confmagic.h"
-+ #include "function.h"
 + #include "hspace.h"
-  
++ 
   void local_functions(void);
   
+  /* Here you can use the new add_function instead of hacking into function.c
 ***************
-*** 42,45 ****
---- 42,56 ----
+*** 39,42 ****
+--- 41,54 ----
   #ifdef EXAMPLE
     function_add("SILLY", local_fun_silly, 1, 1, FN_REG);
   #endif
-+ 
 + #if HSPACE
 +   function_add("HS_CYCLE", fun_hs_cycle, 0, 0, FN_REG);
 +   function_add("HS_SET", fun_hs_set, 2, 3, FN_WIZARD);
@@ -112,84 +58,39 @@
 +   function_add("HS_SALVAGE", fun_hs_salvage, 2, 2, FN_WIZARD);
 + #endif
   }
-*** local.c	2013-07-29 23:05:37.000000000 -0500
---- local.c	2014-12-01 02:28:07.000000000 -0600
+*** local.c	Fri Jan 19 17:49:58 2018
+--- local.c	Fri Jan 19 18:02:18 2018
 ***************
-*** 8,25 ****
-  /* Here are some includes you're likely to need or want.
-   */
-  #include "copyrite.h"
-! 
-  #include <string.h>
-- 
-- #include "command.h"
-  #include "conf.h"
-  #include "dbio.h"
-  #include "externs.h"
-! #include "game.h"
-  #include "htab.h"
+*** 20,25 ****
+--- 20,27 ----
   #include "lock.h"
-! #include "parse.h"
-  
-  
-  extern HASHTAB htab_reserved_aliases;
-  
---- 8,26 ----
-  /* Here are some includes you're likely to need or want.
-   */
-  #include "copyrite.h"
-! #include "config.h"
-  #include <string.h>
-  #include "conf.h"
-  #include "dbio.h"
-  #include "externs.h"
-! #include "parse.h"
-  #include "htab.h"
-+ #include "command.h"
-  #include "lock.h"
-! #include "game.h"
-! #include "confmagic.h"
+  #include "parse.h"
   
 + #include "hspace.h"
-  
++ 
   extern HASHTAB htab_reserved_aliases;
   
+  /* Called after all MUSH init is done.
 ***************
-*** 28,34 ****
-  void
-  local_startup(void)
-  {
-! 
-  /* Register local_timer to be called once a second. You can also
-  * register other callbacks to run at other intervals. See local_timer()
-  * below for an example of what the callback function needs to do if it
---- 29,35 ----
-  void
-  local_startup(void)
-  {
+*** 38,44 ****
+  * time. The latter two can be null pointers. The callback function returns true
+  * if the softcode event should be triggered, false if it shouldn't.
+  */
+! #if 0 /* Change to 1 if you need local_timer functionality. */
+    sq_register_loop(1, local_timer, NULL, NULL);
+  #endif
+  }
+--- 40,47 ----
+  * time. The latter two can be null pointers. The callback function returns true
+  * if the softcode event should be triggered, false if it shouldn't.
+  */
 !   hs_init();
-  /* Register local_timer to be called once a second. You can also
-  * register other callbacks to run at other intervals. See local_timer()
-  * below for an example of what the callback function needs to do if it
-***************
-*** 39,45 ****
-  * time. The latter two can be null pointers. The callback function returns true
-  * if the softcode event should be triggered, false if it shouldn't.
-  */
-! #if 0                           /* Change to 1 if you need local_timer functionality. */
-    sq_register_loop(1, local_timer, NULL, NULL);
-  #endif
-  }
---- 40,46 ----
-  * time. The latter two can be null pointers. The callback function returns true
-  * if the softcode event should be triggered, false if it shouldn't.
-  */
-! #if 1                           /* Change to 1 if you need local_timer functionality. */
+! #if 1 /* Change to 1 if you need local_timer functionality. */
     sq_register_loop(1, local_timer, NULL, NULL);
   #endif
   }
 ***************
-*** 96,101 ****
+*** 94,99 ****
 --- 97,103 ----
   void
   local_dump_database(void)
@@ -199,7 +100,7 @@
   
   /* Called when the MUSH is shutting down.
 ***************
-*** 105,110 ****
+*** 103,108 ****
 --- 107,113 ----
   void
   local_shutdown(void)
@@ -209,59 +110,50 @@
   
   /* Called when the MUSH is performing a dbck database check,
 ***************
-*** 114,128 ****
-  void
-  local_dbck(void)
-  {
-  }
-  
-! /* This is called exactly once a second after the MUSH has done all 
-!  * it's stuff. NOTE: This function MUST be enabled in local_startup();
-!  * read the comments there for instructions.
-   */
-  bool
-  local_timer(void *data __attribute__ ((__unused__)))
-  {
-  
-    /* The callback has to be set back up or it'll only run once. */
-    return false;
---- 117,132 ----
+*** 112,117 ****
+--- 117,123 ----
   void
   local_dbck(void)
   {
 +   hs_dump();
   }
   
-! /* This is called exactly once a second
-!  * After the MUSH has done all it's stuff
-   */
+  /* This is called exactly once a second after the MUSH has done all
+***************
+*** 121,127 ****
   bool
-  local_timer(void *data __attribute__ ((__unused__)))
+  local_timer(void *data __attribute__((__unused__)))
   {
-+   hs_cycle();
-  
+! 
     /* The callback has to be set back up or it'll only run once. */
     return false;
-*** Makefile	2015-01-18 18:38:35.000000000 -0600
---- Makefile	2014-12-06 01:30:24.000000000 -0600
+  }
+--- 127,133 ----
+  bool
+  local_timer(void *data __attribute__((__unused__)))
+  {
+!   hs_cycle();
+    /* The callback has to be set back up or it'll only run once. */
+    return false;
+  }
+*** Makefile	Fri Jan 19 18:08:38 2018
+--- Makefile	Fri Jan 19 18:09:27 2018
 ***************
-*** 7,15 ****
-  OUTFILES=buildinf netmud info_slave 
+*** 7,14 ****
+  OUTFILES=buildinf netmud info_slave ssl_slave
   
   # Libs EXCEPT for SQL ones
 ! LIBS=$(CLIBS)
-  
 ! CFLAGS=$(CCFLAGS) $(SQL_CFLAGS)
   
-  # List of C files, used for make depend:
-  C_FILES=access.c atr_tab.c attrib.c boolexp.c bsd.c bufferq.c chunk.c	\
---- 7,15 ----
-  OUTFILES=buildinf netmud info_slave 
+  # On Windows, due to the bizarre way it handles cases in filesystems,
+  # make thinks the file extension is .C and not .c and tries to compile files
+--- 7,14 ----
+  OUTFILES=buildinf netmud info_slave ssl_slave
   
   # Libs EXCEPT for SQL ones
 ! LIBS=$(CLIBS) space/libhspace.a
-  
 ! CFLAGS=$(CCFLAGS) $(SQL_CFLAGS) -DHSPACE -Ispace
   
-  # List of C files, used for make depend:
-  C_FILES=access.c atr_tab.c attrib.c boolexp.c bsd.c bufferq.c chunk.c	\
+  # On Windows, due to the bizarre way it handles cases in filesystems,
+  # make thinks the file extension is .C and not .c and tries to compile files
