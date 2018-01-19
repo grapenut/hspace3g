@@ -22,6 +22,12 @@ Move __hspace.patch__ to __pennmush/src/__ and execute:
 patch -p0 < hspace.patch
 ```
 
+Move __SWITCHES_SPACE__ to __pennmush/src/__. Copy __pennmush/src/SWITCHES__ to __pennmush/src/SWITCHES_PENN__. Rebuild the SWITCHES file:
+```
+cat pennmush/src/SWITCHES_PENN pennmush/src/SWITCHES_SPACE | sort | uniq > pennmush/src/SWITCHES
+make hdrs/switches.h
+```
+
 Change to the __pennmush/src/space/__ directory and type `make`. You may need to type
 `make` in __pennmush/src/__ first (it's ok if it fails, just need to update command switches).
 
