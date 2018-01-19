@@ -11,7 +11,7 @@
 #define RAD2DEG		57.2957795131
 #define DEG2RAD		0.01745329251
 
-#define HSPACE_CONFIG_FILE "space/hspace.cnf"
+#define HSPACE_CONFIG_FILE "hspace.cnf"
 #define HSPACE_VERSION "HSpace 3G"
 
 #define SPACELOG 	"log/space.log"
