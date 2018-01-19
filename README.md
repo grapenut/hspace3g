@@ -13,7 +13,7 @@ You may quote the __parents/flags.txt__ file to add them automatically.
 
 Move __hspace.hlp__ to __pennmush/game/txt/hlp/__.
 
-Move __hspace.cnf__ to __pennmush/game/space/__.
+Move __hspace.cnf__ to __pennmush/game/__.
 
 Move the __space/__ directory to __pennmush/src/__.
 
