@@ -157,7 +157,7 @@
   
   # On Windows, due to the bizarre way it handles cases in filesystems,
   # make thinks the file extension is .C and not .c and tries to compile files
-*** SWITCHES_PENN	Fri Jan 19 18:36:47 2018
+*** SWITCHES	Fri Jan 19 18:36:47 2018
 --- SWITCHES	Fri Jan 19 18:37:20 2018
 ***************
 *** 1,3 ****
