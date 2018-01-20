@@ -11,25 +11,33 @@ HS_ADMIN, HS_CELESTIAL, HS_COMM (@), HS_COMPONENT (&), HS_CONSOLE, HS_DRONE, HS_
 
 You may quote the __parents/flags.txt__ file to add them automatically.
 
-Move __hspace.hlp__ to __pennmush/game/txt/hlp/__.
+Copy __hspace.hlp__ to __pennmush/game/txt/hlp/__.
 
-Move __hspace.cnf__ to __pennmush/game/__.
+Copy __hspace.cnf__ to __pennmush/game/__.
 
-Move the __space/__ directory to __pennmush/src/__.
+Copy the __space/__ directory to __pennmush/src/__.
 
-Move __hspace.patch__ to __pennmush/src/__ and execute:
+Copy __hspace.patch__ to __pennmush/src/__.
+
+In __pennmush/src/__, execute:
 ```
-patch -p0 < hspace.patch
+patch < hspace.patch
 ```
 
-Move __SWITCHES_SPACE__ to __pennmush/src/__. Copy __pennmush/src/SWITCHES__ to __pennmush/src/SWITCHES_PENN__. Rebuild the SWITCHES file:
+In __pennmush/__, execute:
 ```
-cat pennmush/src/SWITCHES_PENN pennmush/src/SWITCHES_SPACE | sort | uniq > pennmush/src/SWITCHES
 make hdrs/switches.h
 ```
 
-Change to the __pennmush/src/space/__ directory and type `make`. You may need to type
-`make` in __pennmush/src/__ first (it's ok if it fails, just need to update command switches).
+In __pennmush/src/space/__, execute:
+```
+make
+```
+
+In __pennmush/__, execute:
+```
+make install
+```
 
 PARENTS
 -------
@@ -44,4 +52,14 @@ OBJECTS
 Just `@create` objects and `@set` the appropriate flag. Use `@space/load [\<object\>]` to load/reload objects.
 `HELP SPACE ADMIN` and `HELP SPACE CREATE` will get you started on creating objects and setting the appropriate attributes.
 
--grapenut
+
+INSTALL NOTES
+-------------
+In case the patch fails to update the __pennmush/src/SWITCHES__ file, I have provided a list of the switches used for space commands in __SWITCHES_SPACE__.
+Move __SWITCHES_SPACE__ to __pennmush/src/__. Copy __pennmush/src/SWITCHES__ to __pennmush/src/SWITCHES_PENN__. Rebuild the SWITCHES file:
+```
+cat SWITCHES_PENN SWITCHES_SPACE | sort | uniq > SWITCHES
+```
+
+
+

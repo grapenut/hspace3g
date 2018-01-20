@@ -11,7 +11,6 @@ O_FILES = $(C_FILES:.c=.o)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 all: libhspace.a
-	(cd ../..; make)
 
 libhspace.a: hsexterns.h $(O_FILES)
 	rm -f libhspace.a
