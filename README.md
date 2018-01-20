@@ -3,6 +3,8 @@ Modern HSpace3 clone made by grapenut.
 
 Full scale demonstration can be had by connecting to grapenut.org:4201.
 
+**Updated to work with PennMUSH as of 1/19/2018.**
+
 INSTALLATION
 ------------
 
