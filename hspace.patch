@@ -20,12 +20,12 @@
 + #ifdef HSPACE
 +   command_add("@SPACE", CMD_T_ANY | CMD_T_EQSPLIT, "WIZARD ROYALTY HS_SHIP HS_CONSOLE", NULL, "DUMP HALT LIST LOAD MOVE RECONFIGURE SPAWN START VERSION", cmd_space);
 +   command_add("@CONSOLE", CMD_T_THING | CMD_T_EQSPLIT, NULL, NULL, "ABORT BURN CLOSEBAY COMBATSTAT COOLDOWN DOCK DUMP ESTATUS ETA EXTEND FIRE GATE HACK HEADING LAND LAUNCH LINK LOCK MANIFEST NAVMODE OPENBAY PRIMARY PROMPT PVPOFF PVPON QUICKSTAT RETRACT SCAN SECONDARY SHUNT SPEED SREP STANCE STATUS SYSSTAT TAXI TRACTOR UNLINK VIEW WAYPOINT", cmd_console);
-+   command_add("BOARD", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, "", cmd_board);
-+   command_add("COM", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, "", cmd_com);
-+   command_add("DISEMBARK", CMD_T_ANY, NULL, NULL, "", cmd_disembark);
-+   command_add("EJECT", CMD_T_ANY, NULL, NULL, "", cmd_eject);
-+   command_add("MAN", CMD_T_ANY, NULL, NULL, "", cmd_man);
-+   command_add("UNMAN", CMD_T_ANY, NULL, NULL, "", cmd_unman);
++   command_add("BOARD", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, NULL, cmd_board);
++   command_add("COM", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, NULL, cmd_com);
++   command_add("DISEMBARK", CMD_T_ANY, NULL, NULL, NULL, cmd_disembark);
++   command_add("EJECT", CMD_T_ANY, NULL, NULL, NULL, cmd_eject);
++   command_add("MAN", CMD_T_ANY, NULL, NULL, NULL, cmd_man);
++   command_add("UNMAN", CMD_T_ANY, NULL, NULL, NULL, cmd_unman);
 + #endif
   }
 *** funlocal.c	Fri Jan 19 17:49:58 2018
