@@ -87,6 +87,7 @@
 
   See HELP SPACE CREATE for more information about creating space objects.
 
+& space create
 & space create 1
 & space create universes
 & space create celestials
@@ -124,6 +125,7 @@
 			RADIUS		INTEGER, radius of influence.
 			UNIVERSE	DBREF, resident space system.
 			X, Y, Z		INTEGER, space coordinates.
+			DROPPADS	DBREF LIST, landing sites.
 
   See HELP @SPACE for more information on @SPACE/LOAD and @SPACE/MOVE.
   See HELP SPACE CREATE 2 for more on ships, shipobjs, and consoles.
