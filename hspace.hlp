@@ -127,6 +127,9 @@
 			X, Y, Z		INTEGER, space coordinates.
 			DROPPADS	DBREF LIST, landing sites.
 
+  Creating a launchpad: Room type required.
+			BAY		DBREF, object the pad belongs to.
+
   See HELP @SPACE for more information on @SPACE/LOAD and @SPACE/MOVE.
   See HELP SPACE CREATE 2 for more on ships, shipobjs, and consoles.
 
