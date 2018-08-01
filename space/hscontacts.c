@@ -520,7 +520,7 @@ void set_lock(dbref console, char *which)
 
 char *contact_colorstring(hship *ship, hcontact *q)
 {
-  static char cbuf[8];
+  static char cbuf[32];
   int check;
   
   if (!ship || !q)

@@ -16,15 +16,8 @@
 #include <ctype.h>
 #include "config.h"
 
-#ifdef I_STRING
 #include <string.h>
-#else
-#include <strings.h>
-#endif
-
-#ifdef I_SYS_TYPES
 #include <sys/types.h>
-#endif
 
 #ifdef I_TIME
 #include <time.h>
@@ -34,9 +27,7 @@
 #include <sys/time.h>
 #endif
 
-#ifdef I_STDLIB
 #include <stdlib.h>
-#endif
 
 #include <locale.h>
 

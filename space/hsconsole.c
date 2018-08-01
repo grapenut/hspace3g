@@ -1228,7 +1228,8 @@ void set_navmode(dbref console, char *which)
 /* eject cargo from the hold */
 void dump_cargo(dbref con, char *which, char *amount)
 {
-  ATTR *a, *b;
+  //ATTR *a, *b;
+  ALIST *a, *b;
   char name[128];
   char *s, *r;
   
@@ -1274,7 +1275,8 @@ void dump_cargo(dbref con, char *which, char *amount)
     return;
   }
   
-  for (a = List(ship->objnum); a; a = AL_NEXT(a))
+  //for (a = List(ship->objnum); a; a = AL_NEXT(a))
+  ATTR_FOR_EACH (ship->objnum, a)
   {
     if (strncasecmp(AL_NAME(a), "CARGO_", 6))
       continue;
@@ -1298,7 +1300,9 @@ void dump_cargo(dbref con, char *which, char *amount)
     if (ship->docked)
     {
       total = 0;
-      for (b = List(ship->docked->objnum); b; b = AL_NEXT(b))
+      
+      //for (b = List(ship->docked->objnum); b; b = AL_NEXT(b))
+      ATTR_FOR_EACH (ship->docked->objnum, b)
       {
         if (strncasecmp(AL_NAME(b), "CARGO_", 6))
           continue;
@@ -1603,7 +1607,8 @@ void tractor_cargo(dbref con, char *which)
   int i, cash, split;
   int current, max_cargo;
   dbref player, obj, m;
-  ATTR *a;
+  //ATTR *a;
+  ALIST *a;
   int tractored = 0;
   
   ship = find_ship(con);
@@ -1695,7 +1700,9 @@ void tractor_cargo(dbref con, char *which)
       /* it must be some type of cargo */
       max_cargo = atr_parse_integer(ship->objnum, "MAX_CARGO", 0);
       current = 0;
-      for (a = List(ship->objnum); a; a = AL_NEXT(a))
+      
+      //for (a = List(ship->objnum); a; a = AL_NEXT(a))
+      ATTR_FOR_EACH (ship->objnum, a)
       {
         if (!strncasecmp(AL_NAME(a), "CARGO_", 6))
         {
@@ -1780,7 +1787,8 @@ void tractor_cargo(dbref con, char *which)
 /* show a display of cargo on the ship */
 void cargo_manifest(dbref con)
 {
-  ATTR *a;
+  //ATTR *a;
+  ALIST *a;
   char *r, *s;
   int count, amount, total;
 
@@ -1820,7 +1828,8 @@ void cargo_manifest(dbref con)
   count = 0;
   total = 0;
   column = 0;
-  for (a = List(tship->objnum); a; a = AL_NEXT(a))
+  //for (a = List(tship->objnum); a; a = AL_NEXT(a))
+  ATTR_FOR_EACH (tship->objnum, a)
   {
     if (strncasecmp(AL_NAME(a), "CARGO_", 6))
       continue;
