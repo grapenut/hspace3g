@@ -26,6 +26,9 @@ In __pennmush/src/__, execute:
 patch < hspace.patch
 ```
 
+If any hunks fail, check the .rej file and make the changes manually.
+The SWITCHES file is likely to fail, see the INSTALL NOTES below to rebuild it manually.
+
 In __pennmush/__, execute:
 ```
 make hdrs/switches.h
