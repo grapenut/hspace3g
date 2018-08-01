@@ -1,65 +1,5 @@
-*** cmdlocal.c	Fri Jan 19 17:49:58 2018
---- cmdlocal.c	Fri Jan 19 18:00:08 2018
-***************
-*** 20,25 ****
---- 20,27 ----
-  #include "htab.h"
-  #include "parse.h"
-  
-+ #include "hspace.h"
-+ 
-  extern HASHTAB htab_reserved_aliases;
-  
-  /* Called during the command init sequence before any commands are
-***************
-*** 80,83 ****
---- 82,95 ----
-    command_add("@SILLY", CMD_T_ANY, "WIZARD ROYALTY", "SEE_ALL",
-                "NOISY NOEVAL VERY", cmd_local_silly);
-  #endif
-+ #ifdef HSPACE
-+   command_add("@SPACE", CMD_T_ANY | CMD_T_EQSPLIT, "WIZARD ROYALTY HS_SHIP HS_CONSOLE", NULL, "DUMP HALT LIST LOAD MOVE RECONFIGURE SPAWN START VERSION", cmd_space);
-+   command_add("@CONSOLE", CMD_T_THING | CMD_T_EQSPLIT, NULL, NULL, "ABORT BURN CLOSEBAY COMBATSTAT COOLDOWN DOCK DUMP ESTATUS ETA EXTEND FIRE GATE HACK HEADING LAND LAUNCH LINK LOCK MANIFEST NAVMODE OPENBAY PRIMARY PROMPT PVPOFF PVPON QUICKSTAT RETRACT SCAN SECONDARY SHUNT SPEED SREP STANCE STATUS SYSSTAT TAXI TRACTOR UNLINK VIEW WAYPOINT", cmd_console);
-+   command_add("BOARD", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, NULL, cmd_board);
-+   command_add("COM", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, NULL, cmd_com);
-+   command_add("DISEMBARK", CMD_T_ANY, NULL, NULL, NULL, cmd_disembark);
-+   command_add("EJECT", CMD_T_ANY, NULL, NULL, NULL, cmd_eject);
-+   command_add("MAN", CMD_T_ANY, NULL, NULL, NULL, cmd_man);
-+   command_add("UNMAN", CMD_T_ANY, NULL, NULL, NULL, cmd_unman);
-+ #endif
-  }
-*** funlocal.c	Fri Jan 19 17:49:58 2018
---- funlocal.c	Fri Jan 19 17:59:10 2018
-***************
-*** 22,27 ****
---- 22,29 ----
-  #include "function.h"
-  #include "parse.h"
-  
-+ #include "hspace.h"
-+ 
-  void local_functions(void);
-  
-  /* Here you can use the new add_function instead of hacking into function.c
-***************
-*** 39,42 ****
---- 41,54 ----
-  #ifdef EXAMPLE
-    function_add("SILLY", local_fun_silly, 1, 1, FN_REG);
-  #endif
-+ #if HSPACE
-+   function_add("HS_CYCLE", fun_hs_cycle, 0, 0, FN_REG);
-+   function_add("HS_SET", fun_hs_set, 2, 3, FN_WIZARD);
-+   function_add("HS_GET", fun_hs_get, 2, 2, FN_REG);
-+   function_add("HS_SREP", fun_hs_srep, 1, 1, FN_REG);
-+   function_add("HS_COM", fun_hs_com, 1, 2, FN_REG);
-+   function_add("HS_COOLDOWN", fun_hs_cooldown, 2, 2, FN_REG);
-+   function_add("HS_LOAD", fun_hs_load, 1, 1, FN_WIZARD);
-+   function_add("HS_SALVAGE", fun_hs_salvage, 2, 2, FN_WIZARD);
-+ #endif
-  }
-*** local.c	Fri Jan 19 17:49:58 2018
---- local.c	Fri Jan 19 18:02:18 2018
+*** local.c	2018-07-04 17:25:14.722841247 -0400
+--- local.c	2018-07-13 20:32:30.282841247 -0400
 ***************
 *** 20,25 ****
 --- 20,27 ----
@@ -73,17 +13,17 @@
   /* Called after all MUSH init is done.
 ***************
 *** 38,44 ****
-  * time. The latter two can be null pointers. The callback function returns true
-  * if the softcode event should be triggered, false if it shouldn't.
-  */
+   * time. The latter two can be null pointers. The callback function returns true
+   * if the softcode event should be triggered, false if it shouldn't.
+   */
 ! #if 0 /* Change to 1 if you need local_timer functionality. */
     sq_register_loop(1, local_timer, NULL, NULL);
   #endif
   }
 --- 40,47 ----
-  * time. The latter two can be null pointers. The callback function returns true
-  * if the softcode event should be triggered, false if it shouldn't.
-  */
+   * time. The latter two can be null pointers. The callback function returns true
+   * if the softcode event should be triggered, false if it shouldn't.
+   */
 !   hs_init();
 ! #if 1 /* Change to 1 if you need local_timer functionality. */
     sq_register_loop(1, local_timer, NULL, NULL);
@@ -136,8 +76,116 @@
     /* The callback has to be set back up or it'll only run once. */
     return false;
   }
-*** Makefile	Fri Jan 19 18:08:38 2018
---- Makefile	Fri Jan 19 18:09:27 2018
+*** flaglocal.c	2018-07-04 17:23:25.482841247 -0400
+--- flaglocal.c	2018-08-01 19:36:48.281360785 -0400
+***************
+*** 32,37 ****
+--- 32,74 ----
+  void
+  local_flags(FLAGSPACE *flags __attribute__((__unused__)))
+  {
++   if (strcmp(flags->name, "HS_ADMIN") == 0) {
++     add_flag("HS_ADMIN", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_CELESTIAL") == 0) {
++     add_flag("HS_CELESTIAL", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_COMM") == 0) {
++     add_flag("HS_COMM", '@', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_COMPONENT") == 0) {
++     add_flag("HS_COMPONENT", '&', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_CONSOLE") == 0) {
++     add_flag("HS_CONSOLE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_DRONE") == 0) {
++     add_flag("HS_DRONE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_MISSION") == 0) {
++     add_flag("HS_MISSION", 'y', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_SHIP") == 0) {
++     add_flag("HS_SHIP", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_SHIPOBJ") == 0) {
++     add_flag("HS_SHIPOBJ", '$', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_SIM") == 0) {
++     add_flag("HS_SIM", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_UNIVERSE") == 0) {
++     add_flag("HS_UNIVERSE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++   if (strcmp(flags->name, "HS_WEAPON") == 0) {
++     add_flag("HS_WEAPON", '>', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
++ 
+  #ifdef EXAMPLE
+    if (strcmp(flags->name, "FLAG") == 0) {
+      add_flag("BIG", 'B', TYPE_PLAYER | TYPE_THING, F_ANY, F_ANY);
+*** cmdlocal.c	2018-07-04 17:23:25.470841247 -0400
+--- cmdlocal.c	2018-07-13 20:30:37.418841247 -0400
+***************
+*** 20,25 ****
+--- 20,27 ----
+  #include "htab.h"
+  #include "parse.h"
+  
++ #include "hspace.h"
++ 
+  extern HASHTAB htab_reserved_aliases;
+  
+  /* Called during the command init sequence before any commands are
+***************
+*** 80,83 ****
+--- 82,95 ----
+    command_add("@SILLY", CMD_T_ANY, "WIZARD ROYALTY", "SEE_ALL",
+                "NOISY NOEVAL VERY", cmd_local_silly);
+  #endif
++ #ifdef HSPACE
++   command_add("@SPACE", CMD_T_ANY | CMD_T_EQSPLIT, "WIZARD ROYALTY HS_SHIP HS_CONSOLE", NULL, "DUMP HALT LIST LOAD MOVE RECONFIGURE SPAWN START VERSION", cmd_space);
++   command_add("@CONSOLE", CMD_T_THING | CMD_T_EQSPLIT, NULL, NULL, "ABORT BURN CLOSEBAY COMBATSTAT COOLDOWN DOCK DUMP ESTATUS ETA EXTEND FIRE GATE HACK HEADING LAND LAUNCH LINK LOCK MANIFEST NAVMODE OPENBAY PRIMARY PROMPT PVPOFF PVPON QUICKSTAT RETRACT SCAN SECONDARY SHUNT SPEED SREP STANCE STATUS SYSSTAT TAXI TRACTOR UNLINK VIEW WAYPOINT", cmd_console);
++   command_add("BOARD", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, NULL, cmd_board);
++   command_add("COM", CMD_T_ANY | CMD_T_EQSPLIT, NULL, NULL, NULL, cmd_com);
++   command_add("DISEMBARK", CMD_T_ANY, NULL, NULL, NULL, cmd_disembark);
++   command_add("EJECT", CMD_T_ANY, NULL, NULL, NULL, cmd_eject);
++   command_add("MAN", CMD_T_ANY, NULL, NULL, NULL, cmd_man);
++   command_add("UNMAN", CMD_T_ANY, NULL, NULL, NULL, cmd_unman);
++ #endif
+  }
+*** funlocal.c	2018-07-04 17:23:25.486841247 -0400
+--- funlocal.c	2018-07-13 20:30:37.418841247 -0400
+***************
+*** 22,27 ****
+--- 22,29 ----
+  #include "function.h"
+  #include "parse.h"
+  
++ #include "hspace.h"
++ 
+  void local_functions(void);
+  
+  /* Here you can use the new add_function instead of hacking into function.c
+***************
+*** 39,42 ****
+--- 41,54 ----
+  #ifdef EXAMPLE
+    function_add("SILLY", local_fun_silly, 1, 1, FN_REG);
+  #endif
++ #if HSPACE
++   function_add("HS_CYCLE", fun_hs_cycle, 0, 0, FN_REG);
++   function_add("HS_SET", fun_hs_set, 2, 3, FN_WIZARD);
++   function_add("HS_GET", fun_hs_get, 2, 2, FN_REG);
++   function_add("HS_SREP", fun_hs_srep, 1, 1, FN_REG);
++   function_add("HS_COM", fun_hs_com, 1, 2, FN_REG);
++   function_add("HS_COOLDOWN", fun_hs_cooldown, 2, 2, FN_REG);
++   function_add("HS_LOAD", fun_hs_load, 1, 1, FN_WIZARD);
++   function_add("HS_SALVAGE", fun_hs_salvage, 2, 2, FN_WIZARD);
++ #endif
+  }
+*** Makefile	2018-08-01 19:40:35.246989869 -0400
+--- Makefile	2018-07-16 17:11:28.588748292 -0400
 ***************
 *** 7,14 ****
   OUTFILES=buildinf netmud info_slave ssl_slave
@@ -157,295 +205,3 @@
   
   # On Windows, due to the bizarre way it handles cases in filesystems,
   # make thinks the file extension is .C and not .c and tries to compile files
-*** SWITCHES	Fri Jan 19 18:36:47 2018
---- SWITCHES	Fri Jan 19 18:37:20 2018
-***************
-*** 1,3 ****
---- 1,4 ----
-+ ABORT
-  ACCESS
-  ADD
-  AFTER
-***************
-*** 11,30 ****
---- 12,35 ----
-  BRIEF
-  BUFFER
-  BUILTIN
-+ BURN
-  CHECK
-  CHOWN
-  CHUNKS
-  CLEAR
-  CLEARREGS
-  CLONE
-+ CLOSEBAY
-  CMD
-  COLNAMES
-+ COMBATSTAT
-  COMBINE
-  COMMANDS
-  CONN
-  CONNECT
-  CONNECTED
-  CONTENTS
-+ COOLDOWN
-  COUNT
-  CREATE
-  CSTATS
-***************
-*** 36,51 ****
---- 41,61 ----
-  DESCRIBE
-  DESTROY
-  DISABLE
-+ DOCK
-  DOWN
-  DSTATS
-+ DUMP
-  EMIT
-  ENABLE
-  ENUM
-  EQSPLIT
-  ERR
-+ ESTATUS
-+ ETA
-  EXITS
-  EXTEND
-  FILE
-+ FIRE
-  FIRST
-  FLAGS
-  FOLDERS
-***************
-*** 56,64 ****
---- 66,78 ----
-  FUNCTIONS
-  FWD
-  GAG
-+ GATE
-  GENERATE
-  GLOBALS
-+ HACK
-+ HALT
-  HEADER
-+ HEADING
-  HERE
-  HIDE
-  IFELSE
-***************
-*** 71,93 ****
-  INVENTORY
-  IPRINT
-  JOIN
-  LEAVE
-  LETTER
-- LIST
-  LIMIT
-  LOCAL
-  LOCALIZE
-  LOCKS
-  LOWERCASE
-  LSARGS
-  ME
-  MEMBERS
-  MOD
-  MOGRIFIER
-  MORTAL
-  MOTD
-  MUTE
-  NAME
-  NO
-  NOBREAK
-  NOCASE
---- 85,115 ----
-  INVENTORY
-  IPRINT
-  JOIN
-+ LAND
-+ LAUNCH
-  LEAVE
-  LETTER
-  LIMIT
-+ LINK
-+ LIST
-+ LOAD
-  LOCAL
-  LOCALIZE
-+ LOCK
-  LOCKS
-  LOWERCASE
-  LSARGS
-+ MANIFEST
-  ME
-  MEMBERS
-  MOD
-  MOGRIFIER
-  MORTAL
-  MOTD
-+ MOVE
-  MUTE
-  NAME
-+ NAVMODE
-  NO
-  NOBREAK
-  NOCASE
-***************
-*** 105,110 ****
---- 127,133 ----
-  OFF
-  ON
-  OPAQUE
-+ OPENBAY
-  OUTSIDE
-  OVERRIDE
-  PAGING
-***************
-*** 117,137 ****
-  POWERS
-  PREFIX
-  PRESERVE
-  PRINT
-  PRIVS
-  PURGE
-  QUEUED
-  QUICK
-  QUIET
-  READ
-  REBOOT
-  RECALL
-! REMOVE
-! RENAME
-  REGEXP
-  REGIONS
-  REGISTER
-  REMIT
-  RESTART
-  RESTORE
-  RESTRICT
---- 140,166 ----
-  POWERS
-  PREFIX
-  PRESERVE
-+ PRIMARY
-  PRINT
-  PRIVS
-+ PROMPT
-  PURGE
-+ PVPOFF
-+ PVPON
-  QUEUED
-  QUICK
-+ QUICKSTAT
-  QUIET
-  READ
-  REBOOT
-  RECALL
-! RECONFIGURE
-  REGEXP
-  REGIONS
-  REGISTER
-  REMIT
-+ REMOVE
-+ RENAME
-  RESTART
-  RESTORE
-  RESTRICT
-***************
-*** 144,183 ****
-  RSARGS
-  RSNOPARSE
-  SAVE
-  SEARCH
-  SEE
-  SEEFLAG
-  SELF
-  SEND
-  SET
-  SETQ
-  SILENT
-  SKIPDEFAULTS
-  SPEAK
-  SPOOF
-  STATS
-  STATUS
-  SUMMARY
-  TABLES
-  TAG
-  TELEPORT
-  TF
-  THINGS
-  TITLE
-  TRACE
-  TRIM
-  TYPE
-  UNCLEAR
-  UNCOMBINE
-- UNHIDE
-- UNGAG
-  UNFOLDER
-  UNMUTE
-  UNREAD
-  UNTAG
-  UNTIL
-  URGENT
-  USEFLAG
-  WHAT
-  WHO
-  WILD
---- 173,227 ----
-  RSARGS
-  RSNOPARSE
-  SAVE
-+ SCAN
-  SEARCH
-+ SECONDARY
-  SEE
-  SEEFLAG
-  SELF
-  SEND
-  SET
-  SETQ
-+ SHUNT
-  SILENT
-  SKIPDEFAULTS
-+ SPAWN
-  SPEAK
-+ SPEED
-  SPOOF
-+ SREP
-+ STANCE
-+ START
-  STATS
-  STATUS
-  SUMMARY
-+ SYSSTAT
-  TABLES
-  TAG
-+ TAXI
-  TELEPORT
-  TF
-  THINGS
-  TITLE
-  TRACE
-+ TRACTOR
-  TRIM
-  TYPE
-  UNCLEAR
-  UNCOMBINE
-  UNFOLDER
-+ UNGAG
-+ UNHIDE
-+ UNLINK
-  UNMUTE
-  UNREAD
-  UNTAG
-  UNTIL
-  URGENT
-  USEFLAG
-+ VERSION
-+ VIEW
-+ WAYPOINT
-  WHAT
-  WHO
-  WILD
