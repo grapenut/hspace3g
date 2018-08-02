@@ -76,26 +76,28 @@
     /* The callback has to be set back up or it'll only run once. */
     return false;
   }
-*** flaglocal.dst	2018-08-01 19:50:24.564828035 -0400
---- flaglocal.c	2018-08-01 20:02:56.552991387 -0400
+*** flaglocal.c	2018-08-01 20:07:37.850057120 -0400
+--- flaglocal.c	2018-08-01 20:12:20.511106273 -0400
 ***************
 *** 32,37 ****
---- 32,50 ----
+--- 32,52 ----
   void
   local_flags(FLAGSPACE *flags __attribute__((__unused__)))
   {
-+   add_flag("HS_ADMIN", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_CELESTIAL", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_COMM", '@', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_COMPONENT", '&', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_CONSOLE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_DRONE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_MISSION", 'y', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_SHIP", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_SHIPOBJ", '$', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_SIM", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_UNIVERSE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   add_flag("HS_WEAPON", '>', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   if (strcmp(flags->name, "FLAG") == 0) {
++     add_flag("HS_ADMIN", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_CELESTIAL", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_COMM", '@', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_COMPONENT", '&', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_CONSOLE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_DRONE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_MISSION", 'y', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_SHIP", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_SHIPOBJ", '$', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_SIM", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_UNIVERSE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++     add_flag("HS_WEAPON", '>', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   }
 + 
   #ifdef EXAMPLE
     if (strcmp(flags->name, "FLAG") == 0) {
