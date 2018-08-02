@@ -76,50 +76,26 @@
     /* The callback has to be set back up or it'll only run once. */
     return false;
   }
-*** flaglocal.c	2018-07-04 17:23:25.482841247 -0400
---- flaglocal.c	2018-08-01 19:36:48.281360785 -0400
+*** flaglocal.dst	2018-08-01 19:50:24.564828035 -0400
+--- flaglocal.c	2018-08-01 20:02:56.552991387 -0400
 ***************
 *** 32,37 ****
---- 32,74 ----
+--- 32,50 ----
   void
   local_flags(FLAGSPACE *flags __attribute__((__unused__)))
   {
-+   if (strcmp(flags->name, "HS_ADMIN") == 0) {
-+     add_flag("HS_ADMIN", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_CELESTIAL") == 0) {
-+     add_flag("HS_CELESTIAL", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_COMM") == 0) {
-+     add_flag("HS_COMM", '@', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_COMPONENT") == 0) {
-+     add_flag("HS_COMPONENT", '&', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_CONSOLE") == 0) {
-+     add_flag("HS_CONSOLE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_DRONE") == 0) {
-+     add_flag("HS_DRONE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_MISSION") == 0) {
-+     add_flag("HS_MISSION", 'y', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_SHIP") == 0) {
-+     add_flag("HS_SHIP", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_SHIPOBJ") == 0) {
-+     add_flag("HS_SHIPOBJ", '$', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_SIM") == 0) {
-+     add_flag("HS_SIM", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_UNIVERSE") == 0) {
-+     add_flag("HS_UNIVERSE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
-+   if (strcmp(flags->name, "HS_WEAPON") == 0) {
-+     add_flag("HS_WEAPON", '>', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
-+   }
++   add_flag("HS_ADMIN", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_CELESTIAL", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_COMM", '@', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_COMPONENT", '&', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_CONSOLE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_DRONE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_MISSION", 'y', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_SHIP", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_SHIPOBJ", '$', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_SIM", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_UNIVERSE", '\0', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
++   add_flag("HS_WEAPON", '>', TYPE_PLAYER | TYPE_THING, F_WIZARD, F_WIZARD);
 + 
   #ifdef EXAMPLE
     if (strcmp(flags->name, "FLAG") == 0) {
